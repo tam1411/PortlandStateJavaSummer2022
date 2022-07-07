@@ -12,12 +12,21 @@ public class Project1 {
     return true;
   }
 
-  public static void main(String[] args) {
-    PhoneCall call = new PhoneCall(args[1],args[2],args[3],args[4]);  // Refer to one of Dave's classes so that we can be sure it is on the classpath
-    System.err.println("Missing command line arguments");
+  public static void main(String [] args) {
+
+    if (args.length == 0) {
+      System.err.println("Missing command line arguments");
+    }
+    else if (args.length == 1){
+      System.err.println("Not enough arguments");
+    }
+
     for (String arg : args) {
       System.out.println(arg);
     }
+
+    PhoneCall call = new PhoneCall(args[1], args[2], args[3], args[4]);  // Refer to one of Dave's classes so that we can be sure it is on the classpath
   }
+
 
 }
