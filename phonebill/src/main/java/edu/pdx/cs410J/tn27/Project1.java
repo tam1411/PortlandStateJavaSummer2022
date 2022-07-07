@@ -7,27 +7,37 @@ import com.google.common.annotations.VisibleForTesting;
  */
 public class Project1 {
 
-  @VisibleForTesting
-  static boolean isValidPhoneNumber(String phoneNumber) {
-    return true;
-  }
 
-  public static void main(String [] args) {
 
-    if (args.length == 0) {
-      System.err.println("Missing command line arguments");
+  public static void main(String[] args) {
 
-    }
-    if (args.length == 1){
-      System.err.println("Not enough argument");
-    }
-
+    String result = ValidArgument(args);
     for (String arg : args) {
       System.out.println(arg);
     }
 
     PhoneCall call = new PhoneCall(args[1], args[2], args[3], args[4]);  // Refer to one of Dave's classes so that we can be sure it is on the classpath
   }
+//function to test the number of arguments on the command line
+@VisibleForTesting
+  static String ValidArgument(String... args) {
+    String ErrorMessage = null;
+
+    if (args.length == 0) {
+      ErrorMessage = "Missing command line arguments\n";
+
+    }
+    if (args.length == 1) {
+      ErrorMessage = "Not enough argument.\n";
+    }
+    return ErrorMessage;
+  }
+ //Function to test if user enter valid phone number
+  @VisibleForTesting
+  static boolean isValidPhoneNumber(String phoneNumber) {
+    return true;
+  }
+
 
 
 }

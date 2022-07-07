@@ -69,4 +69,16 @@ public class PhoneCallTest {
         assertThat(call.getEndTimeString(),equalTo(end_time));
     }
 
+    //Test if there is no argument
+    @Test
+    void validateNoArgument(){
+        Project1 var = new Project1();
+        assertThat(var.ValidArgument(),equalTo("Missing command line arguments\n"));
+    }
+    @Test
+    void ValidateNotEnoughArgument(){
+        Project1 var = new Project1();
+        assertThat(var.ValidArgument("name"),equalTo("Not enough argument.\n"));
+    }
+
 }
