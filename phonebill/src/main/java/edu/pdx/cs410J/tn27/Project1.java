@@ -16,9 +16,10 @@ public class Project1 {
 
     if (args.length == 0) {
       System.err.println("Missing command line arguments");
+
     }
-    else if (args.length == 1){
-      System.err.println("Not enough arguments");
+    if (args.length == 1){
+      System.err.println("Not enough argument");
     }
 
     for (String arg : args) {
