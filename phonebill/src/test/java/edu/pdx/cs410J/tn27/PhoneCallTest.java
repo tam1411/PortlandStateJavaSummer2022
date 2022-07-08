@@ -75,10 +75,28 @@ public class PhoneCallTest {
         Project1 var = new Project1();
         assertThat(var.ValidArgument(),equalTo("Missing command line arguments\n"));
     }
+    //Test if there is not enough argument
     @Test
     void ValidateNotEnoughArgument(){
         Project1 var = new Project1();
-        assertThat(var.ValidArgument("name"),equalTo("Not enough argument.\n"));
+        assertThat(var.ValidArgument("name"),equalTo("Not enough arguments"));
+    }
+    //Test for a null argument on the command line
+    @Test
+    void NullArgument(){
+    Project1 var= new Project1();
+    assertThat(var.ValidArgument("name",null,null,"123","name"),equalTo("Containing an empty argument"));
     }
 
+    //Test for invalid phone number
+  @Test
+    void InvalidPhoneNumber() {
+      Project1 var = new Project1();
+      boolean result = var.isValidPhoneNumber("123-46-abcd");
+      if (!result) {
+          assertThat("Invalid phone number", equalTo("Invalid phone number"));
+
+      }
+  }
 }
+
