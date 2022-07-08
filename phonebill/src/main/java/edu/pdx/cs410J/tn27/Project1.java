@@ -27,8 +27,7 @@ public class Project1 {
       if (!isValidName(args[0])){
         System.err.println("Invalid name");
       }
-      //Create a phoneBill
-      PhoneBill phonebill = new PhoneBill(args[0]);
+
       if (!isValidDate(args[3])|| !isValidDate(args[5])){
         System.err.println("Invalid date");
       }
@@ -42,6 +41,8 @@ public class Project1 {
     }*/
 
       PhoneCall call = new PhoneCall(args[1], args[2], args[3], args[4],args[5],args[6]);  // Refer to one of Dave's classes so that we can be sure it is on the classpath
+      PhoneBill phonebill = new PhoneBill(args[0]);
+      phonebill.addPhoneCall(call);
 
   }
 

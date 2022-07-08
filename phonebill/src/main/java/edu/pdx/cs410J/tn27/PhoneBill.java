@@ -6,8 +6,9 @@ import java.util.Collection;
 
 public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
   private final String customer;
-
+  private PhoneCall [] call;
   public PhoneBill(String customer) {
+    this.call = new PhoneCall[20];
     this.customer = customer;
   }
 
@@ -16,13 +17,18 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
     return this.customer;
   }
 
+  //Function to add the new call at the end of the array
   @Override
   public void addPhoneCall(PhoneCall call) {
-    throw new UnsupportedOperationException("This method is not implemented yet");
+    int length = this.call.length;
+    if (length == 0){
+      this.call[length] = call;
+    }
+    this.call[length+1] = call;
   }
 
   @Override
   public Collection<PhoneCall> getPhoneCalls() {
-    throw new UnsupportedOperationException("This method is not implemented yet");
+    return null;
   }
 }
