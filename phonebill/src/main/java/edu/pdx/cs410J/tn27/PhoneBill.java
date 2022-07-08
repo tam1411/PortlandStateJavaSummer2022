@@ -8,8 +8,9 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
   private final String customer;
   private PhoneCall [] call;
   public PhoneBill(String customer) {
-    this.call = new PhoneCall[20];
+
     this.customer = customer;
+    call = new PhoneCall[20];
   }
 
   @Override
@@ -20,11 +21,14 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
   //Function to add the new call at the end of the array
   @Override
   public void addPhoneCall(PhoneCall call) {
+
     int length = this.call.length;
     if (length == 0){
       this.call[length] = call;
     }
+    if (length<19){
     this.call[length+1] = call;
+    }
   }
 
   @Override

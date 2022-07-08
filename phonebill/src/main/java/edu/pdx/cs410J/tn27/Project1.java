@@ -14,6 +14,7 @@ public class Project1 {
 
   public static void main(String[] args) {
 
+
     /*Test the number of argument on the command line*/
     String result = ValidArgument(args);
     if (result != null)
