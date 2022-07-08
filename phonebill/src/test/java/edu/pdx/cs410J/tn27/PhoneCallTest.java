@@ -111,7 +111,7 @@ public class PhoneCallTest {
    @Test
    void InvalidTime(){
        Project1 var = new Project1();
-       boolean result = var.isValidTime("123:123");
+       boolean result = var.isValidTime("122:23");
        if (!result) {
            assertThat("Invalid time", equalTo("Invalid time"));
        }

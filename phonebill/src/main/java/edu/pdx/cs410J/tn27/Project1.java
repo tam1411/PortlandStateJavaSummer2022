@@ -16,9 +16,12 @@ public class Project1 {
 
     /*Test the number of argument on the command line*/
     String result = ValidArgument(args);
-    System.err.println(result);
+    if (result != null)
+    {
+      System.err.println(result);
+    }
 
-    if (result == null) {
+   else {
       /*Validate phone number*/
       if (!isValidPhoneNumber(args[1]) || !isValidPhoneNumber(args[2])) {
         System.err.println("Invalid phone number");
@@ -34,15 +37,15 @@ public class Project1 {
       if (!isValidTime(args[4])|| !isValidDate(args[6])){
         System.err.println("Invalid time");
       }
-    }
 
- /*for (String arg : args) {
-      System.out.println(arg);
-    }*/
-
-      PhoneCall call = new PhoneCall(args[1], args[2], args[3], args[4],args[5],args[6]);  // Refer to one of Dave's classes so that we can be sure it is on the classpath
       PhoneBill phonebill = new PhoneBill(args[0]);
+      PhoneCall call = new PhoneCall(args[1], args[2], args[3], args[4],args[5],args[6]);  // Refer to one of Dave's classes so that we can be sure it is on the classpath
+
       phonebill.addPhoneCall(call);
+ for (String arg : args) {
+      System.out.println(arg);
+    }
+   }
 
   }
 
