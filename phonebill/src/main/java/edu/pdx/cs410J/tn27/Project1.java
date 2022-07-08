@@ -17,55 +17,57 @@ public class Project1 {
     /*Test the number of argument on the command line*/
     String result = ValidArgument(args);
     System.err.println(result);
-    /*for (String arg : args) {
+
+    if (result ==null) {
+      /*Validate phone number*/
+      if (!isValidPhoneNumber(args[1]) || !isValidPhoneNumber(args[2])) {
+        System.err.println("Invalid phone number");
+      }
+      /*Validate Name*/
+      if (!isValidName(args[0])){
+        System.err.println("Invalid name");
+      }
+      if (!isValidDate(args[3])|| !isValidDate(args[5])){
+        System.err.println("Invalid date");
+      }
+      if (!isValidTime(args[4])|| !isValidDate(args[6])){
+        System.err.println("Invalid time");
+      }
+    }
+
+ /*for (String arg : args) {
       System.out.println(arg);
     }*/
 
-    /*Validate phone number*/
-      String error = "Invalid phone number";
-      if (!isValidPhoneNumber(args[1]) || !isValidPhoneNumber(args[2])){
-        System.err.println(error);
-      }
+      //PhoneCall call = new PhoneCall(args[1], args[2], args[3], args[4]);  // Refer to one of Dave's classes so that we can be sure it is on the classpath
 
-
-
-    //PhoneCall call = new PhoneCall(args[1], args[2], args[3], args[4]);  // Refer to one of Dave's classes so that we can be sure it is on the classpath
   }
 
 //function to test the number of arguments on the command line
 @VisibleForTesting
   static String ValidArgument(String... args) {
-    String ErrorMessage = null;
 
     if (args.length == 0) {
-      ErrorMessage = "Missing command line arguments\n";
+      return "Missing command line arguments\n";
 
     }
     if (args.length == 1) {
-      ErrorMessage = "Not enough arguments";
+      return"Not enough arguments";
     }
-    else if (args.length == 5)
+    else if (args.length == 7)
     {
       for (int i = 0; i <= 4; ++i){
         if (args[i] == null) {
-          ErrorMessage = "Containing an empty argument";
-          break;
+         return "Containing an empty argument";
+
         }
       }
     }
-    return ErrorMessage;
+    return null;
   }
  //Function to test if user enter valid phone number
   @VisibleForTesting
   static boolean isValidPhoneNumber(String phoneNumber) {
-    /*char [] character = phoneNumber.toCharArray();
-    for (char c : character){
-      if (Character.isDigit(c)){
-        return false;
-      }
-    }
-    return true;*/
-
 
     String regex = "[0-9]{3}-[0-9]{3}-[0-9]{4}";
     Pattern P = Pattern.compile(regex);
@@ -74,7 +76,37 @@ public class Project1 {
 
     return match.matches();
   }
+//Function to test for valid name
+  @VisibleForTesting
+static boolean isValidName(String name) {
 
+  String regex = ".*";
+  Pattern P = Pattern.compile(regex);
+  if(name == null) return false;
+  Matcher match = P.matcher(name);
 
+  return match.matches();
+}
+@VisibleForTesting
+//Function to test for valid date
+static boolean isValidDate(String date) {
 
+  String regex = "[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}";
+  Pattern P = Pattern.compile(regex);
+  if(date == null) return false;
+  Matcher match = P.matcher(date);
+
+  return match.matches();
+}
+@VisibleForTesting
+  static boolean isValidTime(String time) {
+
+  String regex = "[0-4]{1,2}:[0-6][0-9]";
+  Pattern P = Pattern.compile(regex);
+  if (time == null) return false;
+  Matcher match = P.matcher(time);
+
+  return match.matches();
+
+}
 }

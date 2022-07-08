@@ -85,7 +85,7 @@ public class PhoneCallTest {
     @Test
     void NullArgument(){
     Project1 var= new Project1();
-    assertThat(var.ValidArgument("name",null,null,"123","name"),equalTo("Containing an empty argument"));
+    assertThat(var.ValidArgument("name",null,null,"123","name","1","2"),equalTo("Containing an empty argument"));
     }
 
     //Test for invalid phone number
@@ -98,5 +98,33 @@ public class PhoneCallTest {
 
       }
   }
+  //Test for an invalid name
+  @Test
+    void InvalidName() {
+      Project1 var = new Project1();
+      boolean result = var.isValidName(null);
+      if (!result) {
+          assertThat("Invalid name", equalTo("Invalid name"));
+      }
+  }
+   //Test for an invalid date
+      @Test
+     void InvalidDate(){
+          Project1 var = new Project1();
+          boolean result = var.isValidDate("123/12/2011");
+          if (!result) {
+              assertThat("Invalid date", equalTo("Invalid date"));
+          }
+      }
+   //Test for an invalid time
+   @Test
+   void InvalidTime(){
+       Project1 var = new Project1();
+       boolean result = var.isValidTime("123:123");
+       if (!result) {
+           assertThat("Invalid time", equalTo("Invalid time"));
+       }
+   }
+
 }
 
