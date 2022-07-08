@@ -18,7 +18,7 @@ public class Project1 {
     String result = ValidArgument(args);
     System.err.println(result);
 
-    if (result ==null) {
+    if (result == null) {
       /*Validate phone number*/
       if (!isValidPhoneNumber(args[1]) || !isValidPhoneNumber(args[2])) {
         System.err.println("Invalid phone number");
@@ -27,6 +27,8 @@ public class Project1 {
       if (!isValidName(args[0])){
         System.err.println("Invalid name");
       }
+      //Create a phoneBill
+      PhoneBill phonebill = new PhoneBill(args[0]);
       if (!isValidDate(args[3])|| !isValidDate(args[5])){
         System.err.println("Invalid date");
       }
@@ -39,7 +41,7 @@ public class Project1 {
       System.out.println(arg);
     }*/
 
-      //PhoneCall call = new PhoneCall(args[1], args[2], args[3], args[4]);  // Refer to one of Dave's classes so that we can be sure it is on the classpath
+      PhoneCall call = new PhoneCall(args[1], args[2], args[3], args[4],args[5],args[6]);  // Refer to one of Dave's classes so that we can be sure it is on the classpath
 
   }
 
@@ -51,7 +53,7 @@ public class Project1 {
       return "Missing command line arguments\n";
 
     }
-    if (args.length == 1) {
+    if (args.length < 7) {
       return"Not enough arguments";
     }
     else if (args.length == 7)
