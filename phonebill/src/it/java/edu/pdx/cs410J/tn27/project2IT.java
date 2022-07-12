@@ -5,18 +5,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 
 /**
- * Tests the functionality in the {@link Project1} main class.
+ * Tests the functionality in the {@link project2} main class.
  */
-class Project1IT extends InvokeMainTestCase {
+class project2IT extends InvokeMainTestCase {
 
     /**
-     * Invokes the main method of {@link Project1} with the given arguments.
+     * Invokes the main method of {@link project2} with the given arguments.
      */
     private MainMethodResult invokeMain(String... args) {
-        return invokeMain(Project1.class, args);
+        return invokeMain(project2.class, args);
     }
 
     /**
@@ -24,7 +23,7 @@ class Project1IT extends InvokeMainTestCase {
      */
     @Test
     void testNoCommandLineArguments() {
-        InvokeMainTestCase.MainMethodResult result = invokeMain(Project1.class);
+        InvokeMainTestCase.MainMethodResult result = invokeMain(project2.class);
         assertThat(result.getTextWrittenToStandardError(), containsString("Missing command line arguments\n"));
     }
 

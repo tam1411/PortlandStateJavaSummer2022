@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 /**
  * The main class for the CS410J Phone Bill Project
  */
-public class Project1 {
+public class project2 {
 
 
 
