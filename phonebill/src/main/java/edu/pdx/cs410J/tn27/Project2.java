@@ -2,6 +2,7 @@ package edu.pdx.cs410J.tn27;
 
 import com.google.common.annotations.VisibleForTesting;
 
+import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,7 +13,7 @@ public class Project2 {
 
 
 
-  public static void main(String[] args) {
+  public static void main(String[] args)  {
 
       if (args.length == 0) {
           System.err.println( "Missing command line arguments\n");
@@ -38,6 +39,35 @@ public class Project2 {
               }
               //-README option
               if (args.length == 1 && args[0].equals("-README")) {
+
+                  try
+                  { InputStream readme = Project2.class.getResourceAsStream("README.txt");
+                  BufferedReader reader = new BufferedReader(new InputStreamReader(readme));
+                  String line = null;
+                  while ((line = reader.readLine()) != null)
+                  {
+                      System.out.println(line);
+                  }
+                  }
+                  catch(IOException e){
+                      System.err.println("Error with README.txt");
+                  }
+              }
+              //Text File option
+              if (args.length == 9 && args[0].equals("-textFile")){
+                  //First we need to validate the file name
+                  if (!ValidateFileName(args[1])){
+                      System.err.println("Invalid File Name");
+                  }
+                  //Second we need to check if the file exist
+                  else {
+                      //If file exists
+                      if (ExistFile(args[1])){
+
+                      }
+
+                      //If not exist
+                  }
               }
               //Normal command line arguments
               if (args.length == 7) {
@@ -74,6 +104,32 @@ public class Project2 {
           }
       }
    }
+ //Function to read and create the new phone bill with phone call
+ //When the file exists
+ static void ReadFileAndCreatePhone(String file_name) throws FileNotFoundException {
+     BufferedReader reader = new BufferedReader(new FileReader(file_name));
+     TextParser parser = new TextParser(reader);
+
+ }
+//Function to validate the format of file name
+//Make sure it ends with .txt
+@VisibleForTesting
+static boolean ValidateFileName(String file){
+    String regex = ".*\\.txt";
+    Pattern P = Pattern.compile(regex);
+    if(file == null) return false;
+    Matcher match = P.matcher(file);
+
+    return match.matches();
+}
+//Function to check if the file exist.
+@VisibleForTesting
+static boolean ExistFile(String file_name){
+      File file = new File(file_name);
+      if (file.isFile()) return true;
+      return false;
+
+}
 
 
 //function to test the number of arguments on the command line

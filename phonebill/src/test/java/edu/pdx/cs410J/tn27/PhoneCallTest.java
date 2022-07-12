@@ -103,11 +103,31 @@ public class PhoneCallTest {
    @Test
    void InvalidTime(){
        Project2 var = new Project2();
-       boolean result = var.isValidTime("122:23");
-       if (!result) {
-           assertThat("Invalid time", equalTo("Invalid time"));
+       boolean result = var.isValidTime("123:12");
+
+           if (!result){
+               assertThat("Invalid time", equalTo("Invalid time"));
        }
    }
+
+@Test
+   //Test for an invalid file name
+    void InvalidFileName(){
+        Project2 var = new Project2();
+        boolean result = var.ValidateFileName("file.txx");
+        if (!result){
+            assertThat("Invalid File Name", equalTo("Invalid File Name"));
+        }
+    }
+@Test
+    //Test if the existing file does exist
+    void ExistFileDoesExist(){
+        Project2 var = new Project2();
+        boolean result = var.ExistFile("empty-phonebill.txt");
+        if (!result){
+            assertThat(false,equalTo(false));
+        }
+    }
 
 
 
