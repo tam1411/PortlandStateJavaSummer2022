@@ -14,41 +14,62 @@ public class Project1 {
 
   public static void main(String[] args) {
 
+      if (args.length == 0) {
+          System.err.println( "Missing command line arguments\n");
 
-    /*Test the number of argument on the command line*/
-    String result = ValidArgument(args);
-    if (result != null)
-    {
-      System.err.println(result);
-    }
-
-   else {
-      /*Validate phone number*/
-      if (!isValidPhoneNumber(args[1]) || !isValidPhoneNumber(args[2])) {
-        System.err.println("Invalid phone number");
       }
-      /*Validate Name*/
-      if (!isValidName(args[0])){
-        System.err.println("Invalid name");
-      }
+      //Validate argument first
+      String result_argument = ValidArgument(args);
 
-      if (!isValidDate(args[3])|| !isValidDate(args[5])){
-        System.err.println("Invalid date");
-      }
-      if (!isValidTime(args[4])|| !isValidDate(args[6])){
-        System.err.println("Invalid time");
-      }
+   //If the argument number is valid
+   if (result_argument == null) {
 
-      PhoneBill phonebill = new PhoneBill(args[0]);
-      PhoneCall call = new PhoneCall(args[1], args[2], args[3], args[4],args[5],args[6]);  // Refer to one of Dave's classes so that we can be sure it is on the classpath
+           //-print option
+           if (args.length == 8 && args[0] == "-print") {
+               PhoneBill phonebill = new PhoneBill(args[1]);
+               PhoneCall call = new PhoneCall(args[2], args[3], args[4], args[5], args[6], args[7]);
+               phonebill.addPhoneCall(call);
+               System.out.println(call.toString());
 
-      phonebill.addPhoneCall(call);
- for (String arg : args) {
-      System.out.println(arg);
-    }
+
+           }
+           //-README option
+            if (args.length == 1 && args[0] == "-README") {
+           }
+            //Normal command line arguments
+            if (args.length == 7)
+            {
+               /*Validate phone number*/
+               if ((!isValidPhoneNumber(args[1])) || (!isValidPhoneNumber(args[2]))) {
+                   System.err.println("Invalid phone number");
+               }
+               //Validate date
+               if (!isValidDate(args[3]) || !isValidDate(args[5])) {
+                   boolean result_date = isValidDate(args[3]);
+                   System.out.println(result_date + "result date\n");
+                   System.err.println("Invalid date");
+               }
+               //Validate time
+               if ((!isValidTime(args[4])) || (!isValidTime(args[6]))) {
+                   boolean result_time = isValidTime(args[4]);
+                   System.out.println(result_time + "result time\n");
+                   System.err.println("Invalid time");
+               }
+
+               PhoneBill phonebill = new PhoneBill(args[0]);
+               PhoneCall call = new PhoneCall(args[1], args[2], args[3], args[4], args[5], args[6]);  // Refer to one of Dave's classes so that we can be sure it is on the classpath
+
+               phonebill.addPhoneCall(call);
+               /*for (String arg : args) {
+                   System.out.println(arg);*/
+               }
+           }
+
+           //Other case will default to fail to meet the valid argument
+           System.err.println("Command line has too many arguments or contains invalid option.\n");
+
    }
 
-  }
 
 //function to test the number of arguments on the command line
 @VisibleForTesting
@@ -58,16 +79,14 @@ public class Project1 {
       return "Missing command line arguments\n";
 
     }
-    if (args.length < 7) {
+    if (args.length < 7 ) {
       return"Not enough arguments";
     }
-    else if (args.length == 7)
-    {
-      for (int i = 0; i <= 4; ++i){
-        if (args[i] == null) {
-         return "Containing an empty argument";
 
-        }
+    for (int i = 0; i <= 4; ++i){
+      if (args[i] == null) {
+       return "Containing an empty argument";
+
       }
     }
     return null;
@@ -83,17 +102,8 @@ public class Project1 {
 
     return match.matches();
   }
-//Function to test for valid name
-  @VisibleForTesting
-static boolean isValidName(String name) {
 
-  String regex = ".*";
-  Pattern P = Pattern.compile(regex);
-  if(name == null) return false;
-  Matcher match = P.matcher(name);
 
-  return match.matches();
-}
 @VisibleForTesting
 //Function to test for valid date
 static boolean isValidDate(String date) {
@@ -108,7 +118,7 @@ static boolean isValidDate(String date) {
 @VisibleForTesting
   static boolean isValidTime(String time) {
 
-  String regex = "[0-4]{1,2}:[0-6][0-9]";
+  String regex = "[0-2][0-9]:[0-6][0-9]";
   Pattern P = Pattern.compile(regex);
   if (time == null) return false;
   Matcher match = P.matcher(time);
@@ -116,4 +126,5 @@ static boolean isValidDate(String date) {
   return match.matches();
 
 }
+
 }

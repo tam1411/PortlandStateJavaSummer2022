@@ -6,7 +6,7 @@ import java.util.Collection;
 
 public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
   private final String customer;
-  private PhoneCall [] call;
+  private final PhoneCall [] call;
   public PhoneBill(String customer) {
 
     this.customer = customer;
@@ -22,13 +22,7 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
   @Override
   public void addPhoneCall(PhoneCall call) {
 
-    int length = this.call.length;
-    if (length == 0){
-      this.call[length] = call;
-    }
-    if (length<19){
-    this.call[length+1] = call;
-    }
+    this.call[1] = call;
   }
 
   @Override

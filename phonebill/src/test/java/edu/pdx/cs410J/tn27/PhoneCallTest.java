@@ -89,15 +89,7 @@ public class PhoneCallTest {
 
       }
   }
-  //Test for an invalid name
-  @Test
-    void InvalidName() {
-      Project1 var = new Project1();
-      boolean result = var.isValidName(null);
-      if (!result) {
-          assertThat("Invalid name", equalTo("Invalid name"));
-      }
-  }
+
    //Test for an invalid date
       @Test
      void InvalidDate(){
