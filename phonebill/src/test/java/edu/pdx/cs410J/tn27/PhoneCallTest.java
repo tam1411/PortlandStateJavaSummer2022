@@ -69,20 +69,20 @@ public class PhoneCallTest {
     //Test if there is not enough argument
     @Test
     void ValidateNotEnoughArgument(){
-        project2 var = new project2();
+        Project2 var = new Project2();
         assertThat(var.ValidArgument("name","2"),equalTo(-1));
     }
     //Test for a null argument on the command line
     @Test
     void NullArgument(){
-    project2 var= new project2();
+    Project2 var= new Project2();
     assertThat(var.ValidArgument("name",null,null,"123","name","1"),equalTo(-1));
     }
 
     //Test for invalid phone number
   @Test
     void InvalidPhoneNumber() {
-      project2 var = new project2();
+      Project2 var = new Project2();
       boolean result = var.isValidPhoneNumber("123-46-abcd");
       if (!result) {
           assertThat("Invalid phone number", equalTo("Invalid phone number"));
@@ -93,7 +93,7 @@ public class PhoneCallTest {
    //Test for an invalid date
       @Test
      void InvalidDate(){
-          project2 var = new project2();
+          Project2 var = new Project2();
           boolean result = var.isValidDate("123/12/2011");
           if (!result) {
               assertThat("Invalid date", equalTo("Invalid date"));
@@ -102,7 +102,7 @@ public class PhoneCallTest {
    //Test for an invalid time
    @Test
    void InvalidTime(){
-       project2 var = new project2();
+       Project2 var = new Project2();
        boolean result = var.isValidTime("122:23");
        if (!result) {
            assertThat("Invalid time", equalTo("Invalid time"));

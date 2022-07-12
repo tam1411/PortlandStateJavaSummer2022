@@ -7,15 +7,15 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * Tests the functionality in the {@link project2} main class.
+ * Tests the functionality in the {@link Project2} main class.
  */
-class project2IT extends InvokeMainTestCase {
+class Project2IT extends InvokeMainTestCase {
 
     /**
-     * Invokes the main method of {@link project2} with the given arguments.
+     * Invokes the main method of {@link Project2} with the given arguments.
      */
     private MainMethodResult invokeMain(String... args) {
-        return invokeMain(project2.class, args);
+        return invokeMain(Project2.class, args);
     }
 
     /**
@@ -23,7 +23,7 @@ class project2IT extends InvokeMainTestCase {
      */
     @Test
     void testNoCommandLineArguments() {
-        InvokeMainTestCase.MainMethodResult result = invokeMain(project2.class);
+        InvokeMainTestCase.MainMethodResult result = invokeMain(Project2.class);
         assertThat(result.getTextWrittenToStandardError(), containsString("Missing command line arguments\n"));
     }
 
