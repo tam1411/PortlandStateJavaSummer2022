@@ -1,6 +1,7 @@
 package edu.pdx.cs410J.tn27;
 
 import com.google.common.annotations.VisibleForTesting;
+import edu.pdx.cs410J.ParserException;
 
 import java.io.*;
 import java.util.regex.Matcher;
@@ -106,9 +107,17 @@ public class Project2 {
    }
  //Function to read and create the new phone bill with phone call
  //When the file exists
- static void ReadFileAndCreatePhone(String file_name) throws FileNotFoundException {
-     BufferedReader reader = new BufferedReader(new FileReader(file_name));
-     TextParser parser = new TextParser(reader);
+ static void ReadFileAndCreatePhone(String file_name) throws ParserException {
+     try{
+         BufferedReader reader = new BufferedReader(new FileReader(file_name));
+         TextParser parser = new TextParser(reader);
+         //Create a new phone bill with customer name.
+         PhoneBill bill = parser.parse();
+     }
+     catch (FileNotFoundException e){
+         throw new ParserException("While parsing the phone bill test", e);
+     }
+
 
  }
 //Function to validate the format of file name

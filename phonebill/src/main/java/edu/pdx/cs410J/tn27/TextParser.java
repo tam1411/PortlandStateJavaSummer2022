@@ -32,4 +32,32 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
       throw new ParserException("While parsing phone bill text", e);
     }
   }
+
+  //Function to read in the text file line by line and add the phone calls to phone bill
+  public PhoneBill AddPhoneCallFromText(PhoneBill bill) throws IOException {
+    BufferedReader br = new BufferedReader(this.reader);
+    br.readLine(); //Read the first line
+    String line = br.readLine(); //Read the second line
+    while (line != null){
+      //Function to split the String line into array
+      String [] array = SplitStringLine(line);
+      //Add each phone call to phone bill
+
+        PhoneCall call = new PhoneCall(array[0],array[1],array[2],array[3],array[4],array[5]);
+        bill.addPhoneCall(call);
+
+      //Read the next line until it's the end of file
+      line = br.readLine();
+    }
+
+  return bill;
+
+  }
+//Function to split the string array by space delimiter and
+//return a string array
+  public String[] SplitStringLine(String line){
+    String [] array = null;
+    array = line.split(" ");
+    return array;
+  }
 }

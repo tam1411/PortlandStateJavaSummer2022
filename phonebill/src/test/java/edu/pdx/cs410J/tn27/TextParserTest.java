@@ -3,8 +3,7 @@ package edu.pdx.cs410J.tn27;
 import edu.pdx.cs410J.ParserException;
 import org.junit.jupiter.api.Test;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -32,5 +31,15 @@ public class TextParserTest {
     assertThrows(ParserException.class, parser::parse);
   }
 
+ /* @Test
+  void StringSplitToStringArray() throws IOException {
+    InputStream resource = getClass().getResourceAsStream("valid-phonebill.txt");
+    assertThat(resource, notNullValue());
+
+    BufferedReader reader = new BufferedReader(new InputStreamReader(resource));
+    TextParser parser = new TextParser(reader);
+    String line = reader.readLine();;
+    String [] array = parser.SplitStringLine(line);
+  }*/
 }
 
