@@ -2,15 +2,17 @@ package edu.pdx.cs410J.tn27;
 
 import edu.pdx.cs410J.AbstractPhoneBill;
 
-import java.util.Collection;
+import java.util.*;
 
 public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
   private final String customer;
-  private final PhoneCall [] call;
+  private final List<PhoneCall> call;
   public PhoneBill(String customer) {
 
     this.customer = customer;
-    call = new PhoneCall[20];
+    this.call = new ArrayList<PhoneCall>() {
+    };
+
   }
 
   @Override
@@ -22,11 +24,15 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
   @Override
   public void addPhoneCall(PhoneCall call) {
 
-    this.call[1] = call;
+    if (call != null) {
+
+      this.call.add(call);
+    }
+
   }
 
   @Override
   public Collection<PhoneCall> getPhoneCalls() {
-    return null;
+    return this.call;
   }
 }
