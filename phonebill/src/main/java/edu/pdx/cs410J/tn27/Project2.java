@@ -60,11 +60,15 @@ public class Project2 {
                   if (!ValidateFileName(args[1])){
                       System.err.println("Invalid File Name");
                   }
+                  //For reading the text file
                   //Second we need to check if the file exist
                   else {
                       //If file exists
                       if (ExistFile(args[1])){
+                         //Read the text file and create a new phone bill
+                          //Add the phone call on the command line to the phone bill
 
+                          //Write the new added phone bill to text file
                       }
 
                       //If not exist
@@ -107,17 +111,27 @@ public class Project2 {
    }
  //Function to read and create the new phone bill with phone call
  //When the file exists
+ @VisibleForTesting
  static void ReadFileAndCreatePhone(String file_name) throws ParserException {
      try{
-         BufferedReader reader = new BufferedReader(new FileReader(file_name));
-         TextParser parser = new TextParser(reader);
+         TextParser parser = new TextParser(new FileReader(file_name));
          //Create a new phone bill with customer name.
          PhoneBill bill = parser.parse();
+         //Need the AddPhoneCallFromText function here
+
      }
      catch (FileNotFoundException e){
          throw new ParserException("While parsing the phone bill test", e);
      }
 
+
+ }
+ //Function to write the new added phone call of phone bill to the text file
+ @VisibleForTesting
+ static void WritePhoneBillToTextFile(String file_name, PhoneBill bill) throws IOException {
+
+          TextDumper dumper = new TextDumper(new FileWriter(file_name));
+          dumper.WriteToFile(bill);
 
  }
 //Function to validate the format of file name

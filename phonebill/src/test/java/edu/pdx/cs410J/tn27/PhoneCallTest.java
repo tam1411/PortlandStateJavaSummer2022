@@ -2,6 +2,8 @@ package edu.pdx.cs410J.tn27;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -128,6 +130,15 @@ public class PhoneCallTest {
             assertThat(false,equalTo(false));
         }
     }
+
+    /*Test if the AddPhoneCall add the phonecall
+    void AddNewPhoneCall(){
+        PhoneBill bill = new PhoneBill("Tam");
+        PhoneCall call = new PhoneCall("123-456-7890" ,"123-456-7890", "12/30", "12:30", "12/31", "12:31");
+        bill.addPhoneCall(call);
+        List<PhoneCall> call1 = PhoneCall("123-456-7890" ,"123-456-7890", "12/30", "12:30", "12/31", "12:31");
+        assertThat(bill.getPhoneCalls(),equalTo());
+    }*/
 
 
 

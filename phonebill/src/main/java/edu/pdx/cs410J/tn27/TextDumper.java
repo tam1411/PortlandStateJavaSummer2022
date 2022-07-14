@@ -24,4 +24,9 @@ public class TextDumper implements PhoneBillDumper<PhoneBill> {
       pw.flush();
     }
   }
+  //Function to write the phone bill to the text file
+  public void WriteToFile(PhoneBill bill){
+
+
+  }
 }
