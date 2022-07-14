@@ -65,10 +65,21 @@ public class Project2 {
                   else {
                       //If file exists
                       if (ExistFile(args[1])){
-                         //Read the text file and create a new phone bill
-                          //Add the phone call on the command line to the phone bill
+                          try {
+                              //Read the text file and create a new phone bill
+                               ReadFile(args[1]);
+                               //Need to validate phone call info before create it.
+                               PhoneCall call = new PhoneCall(args[3],args[4],args[5],args[6],args[7], args[8]);
+                              //Add the phone call on the command line to the phone bill
+                               PhoneBill bill = new PhoneBill(args[2]);
+                               bill.addPhoneCall(call);
 
-                          //Write the new added phone bill to text file
+                              //Write the new added phone bill to text file
+                              WritePhoneBillToTextFile(args[1],bill);
+                          }
+                          catch(ParserException | IOException e){
+                              e.printStackTrace();
+                          }
                       }
 
                       //If not exist
@@ -112,7 +123,7 @@ public class Project2 {
  //Function to read and create the new phone bill with phone call
  //When the file exists
  @VisibleForTesting
- static void ReadFileAndCreatePhone(String file_name) throws ParserException {
+ static void ReadFile(String file_name) throws ParserException {
      try{
          TextParser parser = new TextParser(new FileReader(file_name));
          //Create a new phone bill with customer name.
@@ -130,8 +141,8 @@ public class Project2 {
  @VisibleForTesting
  static void WritePhoneBillToTextFile(String file_name, PhoneBill bill) throws IOException {
 
-          TextDumper dumper = new TextDumper(new FileWriter(file_name,true));
-          //dumper.dumpPhoneCall(bill);
+          TextDumper dumper = new TextDumper(new FileWriter(file_name));
+          dumper.dump(bill);
 
  }
 //Function to validate the format of file name
