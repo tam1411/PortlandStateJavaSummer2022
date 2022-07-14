@@ -20,19 +20,19 @@ public class TextParserTest {
 
 
     TextParser parser = new TextParser(new InputStreamReader(resource));
+    //Parse bill 1 from the text file.
     PhoneBill bill1 = parser.parse();
-
+    List<PhoneCall> call = (List<PhoneCall>) bill1.getPhoneCalls();
+    PhoneCall call1 = call.get(0);
     assertThat(bill1.getCustomer(), equalTo("Test Phone Bill"));
-
-    //PhoneBill bill2 = parser.AddPhoneCallFromText(bill1);
 
 
     //Given a collection of 1 phone call
     PhoneBill bill3 = new PhoneBill("Test Phone Bill");
     PhoneCall new_call = new PhoneCall("123-456-7890", "123-456-7890","12/30", "12:30","12/31","12:31");
-     bill3.addPhoneCall(new_call);
-     if (!bill1.getPhoneCalls().equals(bill3.getPhoneCalls()))
-       assertThat("Invalid phone bill", equalTo("Invalid phone bill"));
+
+    bill3.addPhoneCall(new_call);
+    assertThat(call1.toString(),equalTo(new_call.toString()));
   }
 
   @Test
@@ -44,15 +44,6 @@ public class TextParserTest {
     assertThrows(ParserException.class, parser::parse);
   }
 
- /* @Test
-  void StringSplitToStringArray() throws IOException {
-    InputStream resource = getClass().getResourceAsStream("valid-phonebill.txt");
-    assertThat(resource, notNullValue());
 
-    BufferedReader reader = new BufferedReader(new InputStreamReader(resource));
-    TextParser parser = new TextParser(reader);
-    String line = reader.readLine();;
-    String [] array = parser.SplitStringLine(line);
-  }*/
 }
 

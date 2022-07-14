@@ -130,8 +130,8 @@ public class Project2 {
  @VisibleForTesting
  static void WritePhoneBillToTextFile(String file_name, PhoneBill bill) throws IOException {
 
-          TextDumper dumper = new TextDumper(new FileWriter(file_name));
-          dumper.WriteToFile(bill);
+          TextDumper dumper = new TextDumper(new FileWriter(file_name,true));
+          //dumper.dumpPhoneCall(bill);
 
  }
 //Function to validate the format of file name

@@ -3,9 +3,8 @@ package edu.pdx.cs410J.tn27;
 import edu.pdx.cs410J.AppointmentBookDumper;
 import edu.pdx.cs410J.PhoneBillDumper;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
+import java.io.*;
+import java.util.List;
 
 public class TextDumper implements PhoneBillDumper<PhoneBill> {
   private final Writer writer;
@@ -20,13 +19,34 @@ public class TextDumper implements PhoneBillDumper<PhoneBill> {
       PrintWriter pw = new PrintWriter(this.writer)
     ) {
       pw.println(bill.getCustomer());
+      //pw.println(bill.getPhoneCalls());
+      //pw.println("");//Add a new line;
+      List<PhoneCall> call = (List<PhoneCall>) bill.getPhoneCalls();
+      for (int i = 0; i < call.size(); ++i) {
+        PhoneCall new_call = call.get(0);
+        pw.println(new_call);
 
       pw.flush();
     }
   }
-  //Function to write the phone bill to the text file
-  public void WriteToFile(PhoneBill bill){
+  //Function to write new added phone call to phone bill to the text file.
+  /*public void dumpPhoneCall(PhoneBill bill){
+    try (
+            PrintWriter pw = new PrintWriter(this.writer)
+    ) {
+      //w.println(bill.getPhoneCalls());
+      List<PhoneCall> call = (List<PhoneCall>) bill.getPhoneCalls();
+      for (PhoneCall new_call : call) {
+        pw.println(new_call);
+
+      }
 
 
+
+      pw.flush();
+    }*/
   }
+
+
+
 }
