@@ -62,7 +62,7 @@ public class Project2 {
                                File text_file = new File(args[1]);
                               //Read the text file and create a new phone bill
                                PhoneBill bill = ReadFile(text_file);
-                               if (!bill.getCustomer().equalsIgnoreCase(args[1])){
+                               if (!bill.getCustomer().equalsIgnoreCase(args[2])){
                                    throw new InvalidPhoneCallArgument("NotFoundCustomer");
                                }
                                //validate phone call info before create it.
@@ -86,6 +86,7 @@ public class Project2 {
                                   PhoneBill bill = new PhoneBill(args[2]);
                                   //Add the new phone call
                                   PhoneCall call = CreatePhoneCall(args);
+                                  bill.addPhoneCall(call);
                                   WritePhoneBillToTextFile(text_file,bill);
                               }
                           }
