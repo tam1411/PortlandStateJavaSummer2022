@@ -77,6 +77,7 @@ public class Project2 {
                               System.err.println(e.getMessage());
                           }
                       }
+                      //If not exist
                       else{
 
                           try{
@@ -97,7 +98,7 @@ public class Project2 {
                           }
                       }
 
-                      //If not exist
+
                   }
 
               //Normal command line arguments
@@ -142,9 +143,8 @@ public class Project2 {
      try{
          TextParser parser = new TextParser(new FileReader(file_name));
          //Create a new phone bill with customer name.
-         PhoneBill bill = parser.parse();
          //Need the AddPhoneCallFromText function here
-         return bill;
+         return parser.parse();
      }
      catch (FileNotFoundException e){
          throw new ParserException("While parsing the phone bill test", e);
