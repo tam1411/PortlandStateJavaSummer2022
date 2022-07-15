@@ -23,7 +23,7 @@ public class TextDumper implements PhoneBillDumper<PhoneBill> {
       //pw.println("");//Add a new line;
       List<PhoneCall> call = (List<PhoneCall>) bill.getPhoneCalls();
       for (int i = 0; i < call.size(); ++i) {
-        PhoneCall new_call = call.get(0);
+        PhoneCall new_call = call.get(i);
         String line = new_call.getCaller() + " " +new_call.getCallee()+ " "+ new_call.getBeginDate()+ " "+ new_call.getBeginTimeString()+ " "+ new_call.getEndDate()+" "+ new_call.getEndTimeString();
         pw.println(line);
 

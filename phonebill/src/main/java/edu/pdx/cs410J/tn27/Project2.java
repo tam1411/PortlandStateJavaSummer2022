@@ -56,35 +56,49 @@ public class Project2 {
               }
               //Text File option
               if (args.length == 9 && args[0].equals("-textFile")){
-                  //First we need to validate the file name
-                  if (!ValidateFileName(args[1])){
-                      System.err.println("Invalid File Name");
-                  }
-                  //For reading the text file
-                  //Second we need to check if the file exist
-                  else {
                       //If file exists
                       if (ExistFile(args[1])){
                           try {
+                               File text_file = new File(args[1]);
                               //Read the text file and create a new phone bill
-                               ReadFile(args[1]);
-                               //Need to validate phone call info before create it.
-                               PhoneCall call = new PhoneCall(args[3],args[4],args[5],args[6],args[7], args[8]);
+                               PhoneBill bill = ReadFile(text_file);
+                               if (!bill.getCustomer().equalsIgnoreCase(args[1])){
+                                   throw new InvalidPhoneCallArgument("NotFoundCustomer");
+                               }
+                               //validate phone call info before create it.
+                               PhoneCall call = CreatePhoneCall(args);
                               //Add the phone call on the command line to the phone bill
-                               PhoneBill bill = new PhoneBill(args[2]);
                                bill.addPhoneCall(call);
 
                               //Write the new added phone bill to text file
-                              WritePhoneBillToTextFile(args[1],bill);
+                              WritePhoneBillToTextFile(text_file,bill);
                           }
-                          catch(ParserException | IOException e){
-                              e.printStackTrace();
+                          catch(ParserException | IOException | InvalidPhoneCallArgument e){
+                              System.err.println(e.getMessage());
+                          }
+                      }
+                      else{
+
+                          try{
+                              File text_file = new File(args[1]);
+                              if(text_file.createNewFile()){
+                                  //Create a new phone bill
+                                  PhoneBill bill = new PhoneBill(args[2]);
+                                  //Add the new phone call
+                                  PhoneCall call = CreatePhoneCall(args);
+                                  WritePhoneBillToTextFile(text_file,bill);
+                              }
+                          }
+                          catch(IOException | InvalidPhoneCallArgument e){
+
+                              System.err.println(e.getMessage());
+
                           }
                       }
 
                       //If not exist
                   }
-              }
+
               //Normal command line arguments
               if (args.length == 7) {
                   /*Validate phone number*/
@@ -123,13 +137,13 @@ public class Project2 {
  //Function to read and create the new phone bill with phone call
  //When the file exists
  @VisibleForTesting
- static void ReadFile(String file_name) throws ParserException {
+ static PhoneBill ReadFile(File file_name) throws ParserException {
      try{
          TextParser parser = new TextParser(new FileReader(file_name));
          //Create a new phone bill with customer name.
          PhoneBill bill = parser.parse();
          //Need the AddPhoneCallFromText function here
-
+         return bill;
      }
      catch (FileNotFoundException e){
          throw new ParserException("While parsing the phone bill test", e);
@@ -139,7 +153,7 @@ public class Project2 {
  }
  //Function to write the new added phone call of phone bill to the text file
  @VisibleForTesting
- static void WritePhoneBillToTextFile(String file_name, PhoneBill bill) throws IOException {
+ static void WritePhoneBillToTextFile(File file_name, PhoneBill bill) throws IOException {
 
           TextDumper dumper = new TextDumper(new FileWriter(file_name));
           dumper.dump(bill);
@@ -218,5 +232,33 @@ static boolean isValidDate(String date) {
   return match.matches();
 
 }
+@VisibleForTesting
+    //Extend from exception
+    static class InvalidPhoneCallArgument extends Exception{
+      public InvalidPhoneCallArgument(String message){
+          super(message);
+      }
+
+}
+//Function to validate each arg before create the phone call for text file purpose
+@VisibleForTesting
+    static PhoneCall CreatePhoneCall (String...args) throws InvalidPhoneCallArgument{
+      if (!isValidPhoneNumber(args[3]) || !isValidPhoneNumber(args[4])){
+          throw new InvalidPhoneCallArgument("Invalid phone number.");
+      }
+      else if (!isValidDate(args[5]) || !isValidDate(args[7])){
+          throw new InvalidPhoneCallArgument("Invalid date.");
+      }
+      else if (!isValidTime(args[6]) || !isValidTime(args[8])){
+          throw new InvalidPhoneCallArgument("Invalid time.");
+      }
+      else{
+          return new PhoneCall(args[3],args[4],args[5],args[6],args[7], args[8]);
+      }
+
+}
+
+
+
 
 }

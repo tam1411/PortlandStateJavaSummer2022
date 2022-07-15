@@ -52,21 +52,26 @@ public class TextDumperTest {
 
   @Test
   void canParseTextWrittenByTextDumper(@TempDir File tempDir) throws IOException, ParserException {
+    //Given a collection of phone calls in a phone bill.
     String customer = "Test Phone Bill";
     PhoneBill bill = new PhoneBill(customer);
     PhoneCall new_call = new PhoneCall("123-456-7890", "123-456-7890","12/30", "12:30","12/31","12:31");
+    PhoneCall new_call1 = new PhoneCall("503-123-4561", "123-456-7890","12/30", "12:30","12/31","12:31");
     bill.addPhoneCall(new_call);
+    bill.addPhoneCall(new_call1);
+
 
     File textFile = new File(tempDir, "apptbook.txt");
     TextDumper dumper = new TextDumper(new FileWriter(textFile));
     dumper.dump(bill);
-    //dumper.dumpPhoneCall(bill);
 
     TextParser parser = new TextParser(new FileReader(textFile));
     PhoneBill read = parser.parse();
     List<PhoneCall> call = (List<PhoneCall>) read.getPhoneCalls();
     PhoneCall call1 = call.get(0);
+    PhoneCall call2 = call.get(1);
     assertThat(read.getCustomer(), equalTo(customer));
     assertThat(call1.toString(),equalTo(new_call.toString()));
+    assertThat(call2.toString(),equalTo(new_call1.toString()));
   }
 }
