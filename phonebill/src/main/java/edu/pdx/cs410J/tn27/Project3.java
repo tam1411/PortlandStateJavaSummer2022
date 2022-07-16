@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 /**
  * The main class for the CS410J Phone Bill Project
  */
-public class Project2 {
+public class Project3 {
 
 
 
@@ -42,7 +42,7 @@ public class Project2 {
               if (args.length == 1 && args[0].equals("-README")) {
 
                   try
-                  { InputStream readme = Project2.class.getResourceAsStream("README.txt");
+                  { InputStream readme = Project3.class.getResourceAsStream("README.txt");
                   BufferedReader reader = new BufferedReader(new InputStreamReader(readme));
                   String line = null;
                   while ((line = reader.readLine()) != null)

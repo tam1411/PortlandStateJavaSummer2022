@@ -2,8 +2,6 @@ package edu.pdx.cs410J.tn27;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -71,20 +69,20 @@ public class PhoneCallTest {
     //Test if there is not enough argument
     @Test
     void ValidateNotEnoughArgument(){
-        Project2 var = new Project2();
+        Project3 var = new Project3();
         assertThat(var.ValidArgument("name","2"),equalTo(-1));
     }
     //Test for a null argument on the command line
     @Test
     void NullArgument(){
-    Project2 var= new Project2();
+    Project3 var= new Project3();
     assertThat(var.ValidArgument("name",null,null,"123","name","1"),equalTo(-1));
     }
 
     //Test for invalid phone number
   @Test
     void InvalidPhoneNumber() {
-      Project2 var = new Project2();
+      Project3 var = new Project3();
       boolean result = var.isValidPhoneNumber("123-46-abcd");
       if (!result) {
           assertThat("Invalid phone number", equalTo("Invalid phone number"));
@@ -95,7 +93,7 @@ public class PhoneCallTest {
    //Test for an invalid date
       @Test
      void InvalidDate(){
-          Project2 var = new Project2();
+          Project3 var = new Project3();
           boolean result = var.isValidDate("123/12/2011");
           if (!result) {
               assertThat("Invalid date", equalTo("Invalid date"));
@@ -104,7 +102,7 @@ public class PhoneCallTest {
    //Test for an invalid time
    @Test
    void InvalidTime(){
-       Project2 var = new Project2();
+       Project3 var = new Project3();
        boolean result = var.isValidTime("123:12");
 
            if (!result){
@@ -115,7 +113,7 @@ public class PhoneCallTest {
 @Test
    //Test for an invalid file name
     void InvalidFileName(){
-        Project2 var = new Project2();
+        Project3 var = new Project3();
         boolean result = var.ValidateFileName("file.txx");
         if (!result){
             assertThat("Invalid File Name", equalTo("Invalid File Name"));
@@ -124,7 +122,7 @@ public class PhoneCallTest {
 @Test
     //Test if the existing file does exist
     void ExistFileDoesExist(){
-        Project2 var = new Project2();
+        Project3 var = new Project3();
         boolean result = var.ExistFile("empty-phonebill.txt");
         if (!result){
             assertThat(false,equalTo(false));
