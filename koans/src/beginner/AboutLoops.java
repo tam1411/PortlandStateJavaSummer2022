@@ -143,9 +143,9 @@ public class AboutLoops {
             }
             count += 10;
         }
-        // What does continue with a label mean?
-        // What gets executed? Where does the program flow continue?
-        assertEquals(count, __);
+        // What does continue with a label mean? Stop the current iteration, move to the outer loop.
+        // What gets executed? Where does the program flow continue? From continue to below, no execution.
+        assertEquals(count, 8);
     }
 
     @Koan
@@ -163,6 +163,6 @@ public class AboutLoops {
         }
         // What does break with a label mean?
         // What gets executed? Where does the program flow continue?
-        assertEquals(count, __);
+        assertEquals(count, 3);
     }
 }
