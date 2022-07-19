@@ -42,12 +42,18 @@ public class PhoneCall extends AbstractPhoneCall {
 
   @Override
   public String getBeginTimeString() {
-    return this.begin_time;
+
+    Date begin = getBeginTime();
+    DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.SHORT);
+    return df.format(begin);
   }
 
   @Override
   public String getEndTimeString() {
-    return this.end_time;
+
+    Date end = getEndTime();
+    DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.SHORT);
+    return df.format(end);
   }
 
   @Override

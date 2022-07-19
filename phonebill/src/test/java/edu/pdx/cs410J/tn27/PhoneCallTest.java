@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -145,6 +147,7 @@ public class PhoneCallTest {
         String zone = "am";
         Date full_date = null;
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy h:mm a");
+       // DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(new Date());
         try {
             full_date = df.parse((date + " " + time + " " + zone.toUpperCase().toString()));
         } catch (ParseException e) {
@@ -160,8 +163,6 @@ public class PhoneCallTest {
         PhoneCall call = new PhoneCall("0", "0", "01/12/2022", "8:46", "am", "01/12/2022", "8:46", "am");
         Date date = call.getBeginTime();
         assertThat(date, equalTo(StringTimeDateParseToObjectDate()));
-
-
     }
 
     @Test
@@ -170,7 +171,41 @@ public class PhoneCallTest {
         Date date = call.getEndTime();
         assertThat(date, equalTo(StringTimeDateParseToObjectDate()));
     }
+    @Test
+    void GetBeginTimeStringReturnString(){
+        PhoneCall call = new PhoneCall("0", "0", "01/12/2022", "8:46", "am", "01/12/2022", "8:46", "am");
+        assertThat(call.getBeginTimeString(),equalTo("1/12/22, 8:46 AM"));
+    }
+    @Test
+    void GetEndTimeStringReturnString(){
+        PhoneCall call = new PhoneCall("0", "0", "01/12/2022", "8:46", "am", "01/12/2022", "8:50", "am");
+        assertThat(call.getEndTimeString(),equalTo("1/12/22, 8:50 AM"));
+    }
 
+
+    @Test
+    void SortPhoneCallsReturnSortedPhoneCalls() throws Exception {
+        //Given
+        PhoneCall call1 = new PhoneCall("789", "0", "01/12/2022", "8:46", "am", "01/12/2022", "8:50", "am");
+        PhoneCall call2 = new PhoneCall("456", "0", "01/12/2022", "8:50", "am", "01/12/2022", "8:50", "am");
+        PhoneCall call3 = new PhoneCall("712", "0", "01/12/2022", "8:50", "am", "01/12/2022", "8:50", "am");
+        List<PhoneCall> call = new ArrayList<PhoneCall>();
+        call.add(call3);
+        call.add(call2);
+        call.add(call1);
+
+
+        //Create a phone bill object to sort.
+        PhoneBill bill = new PhoneBill("Tam");
+        bill.addPhoneCall(call1);
+        bill.addPhoneCall(call2);
+        bill.addPhoneCall(call3);
+        bill.SortCollectionPhoneCalls();
+
+
+        //Expect the order is call3, call2, call1 (From most recent to oldest).
+        assertThat(bill.getPhoneCalls(),equalTo(call));
+    }
 }
 
 

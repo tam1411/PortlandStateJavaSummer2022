@@ -10,3 +10,15 @@ on the command line argument.
 put valid information in the correct format and order.
 4.If there is any error in the input, the program will displace
 an error message and exit.
+5. This is how the command line arguments will need to look like.
+"usage: java -jar target/phonebill-2022.0.0.jar [options] <args>\n" +
+                  "args are (in this order):\n" +
+                  "customer: Person whose phone bill we arere modeling\n" +
+                  "callerNumber: Phone number of caller\n" +
+                  "calleeNumber: Phone number of person who was called\n" +
+                  "begin Date and time call began (24-hour time)\n" +
+                  "end Date and time call ended (24-hour time)\n" +
+                  "options are (options may appear in any order):\n" +
+                  "-textFile file : Where to read/write the phone bill\n" +
+                  "-print : Prints a description of the new phone call\n" +
+                  "-README : Prints a README for this project and exits"
