@@ -45,22 +45,15 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
     for (int left = 0; left < this.call.size() -1; ++left){
 
       for ( int right = left + 1; right < this.call.size(); ++right){
-           Date date_1 = this.call.get(left).getBeginTime(); //"08/01"
-           Date date_2 = this.call.get(right).getBeginTime();//"09/02"
-           //date_1 before date 2
-           if (date_1.compareTo(date_2) < 0){
+           if (this.call.get(left).compareTo(this.call.get(right)) < 0){
                Collections.swap(this.call,left,right);
            }
-           else if (date_1.compareTo(date_2) == 0){
-              String caller1 = this.call.get(left).getCaller();
-              String caller2 = this.call.get(right).getCaller();
-              if (caller1.compareTo(caller2)  < 0){
+           else if (this.call.get(left).compareTo(this.call.get(right)) == 0){
                 Collections.swap(this.call,left,right);
               }
 
            }
       }
     }
-    //return this.call;
+
   }
-}

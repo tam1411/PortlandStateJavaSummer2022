@@ -8,7 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PhoneCall extends AbstractPhoneCall {
+public class PhoneCall extends AbstractPhoneCall implements Comparable<PhoneCall>{
   private final String caller_number;
   private final String callee_number;
   private final String begin_time;
@@ -85,6 +85,22 @@ public class PhoneCall extends AbstractPhoneCall {
 
 
   }
+
+
+  @Override
+  public int compareTo(PhoneCall new_call) {
+    int i = this.getBeginTime().compareTo(new_call.getBeginTime());
+    if (i > 0)
+      return 1;
+    else if (i == 0){
+      if (this.caller_number.compareTo(new_call.getCaller())> 0)
+        return 0;
+    }
+    return -1;
+
+  }
+
+
 }
 
 
