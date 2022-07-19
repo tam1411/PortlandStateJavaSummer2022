@@ -19,7 +19,7 @@ public class TextDumperTest {
     //and one phone call.
     String customer = "Test Phone Bill";
     PhoneBill bill = new PhoneBill(customer);
-    PhoneCall new_call = new PhoneCall("123-456-7890", "123-456-7890", "12/30", "12:30", "12/31", "12:31");
+    PhoneCall new_call = new PhoneCall("123-456-7890", "123-456-7890", "12/30", "12:30","am", "12/31", "12:31","am");
     bill.addPhoneCall(new_call);
 
 
@@ -55,8 +55,8 @@ public class TextDumperTest {
     //Given a collection of phone calls in a phone bill.
     String customer = "Test Phone Bill";
     PhoneBill bill = new PhoneBill(customer);
-    PhoneCall new_call = new PhoneCall("123-456-7890", "123-456-7890","12/30", "12:30","12/31","12:31");
-    PhoneCall new_call1 = new PhoneCall("503-123-4561", "123-456-7890","12/30", "12:30","12/31","12:31");
+    PhoneCall new_call = new PhoneCall("123-456-7890", "123-456-7890","12/30", "12:30","am","12/31","12:31","am");
+    PhoneCall new_call1 = new PhoneCall("503-123-4561", "123-456-7890","12/30", "12:30","am","12/31","12:31","am");
     bill.addPhoneCall(new_call);
     bill.addPhoneCall(new_call1);
 

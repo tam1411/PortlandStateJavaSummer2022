@@ -1,6 +1,12 @@
 package edu.pdx.cs410J.tn27;
 
 import edu.pdx.cs410J.AbstractPhoneCall;
+import edu.pdx.cs410J.ParserException;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class PhoneCall extends AbstractPhoneCall {
   private final String caller_number;
@@ -9,14 +15,21 @@ public class PhoneCall extends AbstractPhoneCall {
   private final String end_time;
   private final String begin_date;
   private final String end_date;
-  public PhoneCall(String caller_number, String callee_number, String begin_date,String begin_time, String end_date,String end_time){
+  private final String begin_zone;
+  private final String end_zone;
+
+  public PhoneCall(String caller_number, String callee_number, String begin_date, String begin_time, String begin_zone, String end_date, String end_time, String end_zone) {
     this.caller_number = caller_number;
     this.callee_number = callee_number;
     this.begin_time = begin_time;
     this.end_time = end_time;
     this.begin_date = begin_date;
     this.end_date = end_date;
+    this.begin_zone = begin_zone;
+    this.end_zone = end_zone;
+
   }
+
   @Override
   public String getCaller() {
     return this.caller_number;
@@ -37,16 +50,35 @@ public class PhoneCall extends AbstractPhoneCall {
     return this.end_time;
   }
 
-  public String getBeginDate(){
-    return this.begin_date;
+  @Override
+  public Date getBeginTime() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(this.begin_date + " " + this.begin_time + " " + this.begin_zone);
+    Date date = null;
+    SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy h:mm a");
+    try {
+      date = df.parse(sb.toString());
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
+    }
+    return date;
   }
-  public String getEndDate(){
-    return this.end_date;
+
+  @Override
+  public Date getEndTime() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(this.end_date + " " + this.end_time + " " + this.end_zone);
+    Date date = null;
+    SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy h:mm a");
+    try {
+      date = df.parse(sb.toString());
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
+    }
+    return date;
+
+
   }
-
-
-
-
 }
 
 

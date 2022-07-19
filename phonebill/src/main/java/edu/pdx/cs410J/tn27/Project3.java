@@ -18,6 +18,17 @@ public class Project3 {
 
       if (args.length == 0) {
           System.err.println( "Missing command line arguments\n");
+          System.err.println("usage: java -jar target/phonebill-2022.0.0.jar [options] <args>\n" +
+                  "args are (in this order):\n" +
+                  "customer: Person whose phone bill we arere modeling\n" +
+                  "callerNumber: Phone number of caller\n" +
+                  "calleeNumber: Phone number of person who was called\n" +
+                  "begin Date and time call began (24-hour time)\n" +
+                  "end Date and time call ended (24-hour time)\n" +
+                  "options are (options may appear in any order):\n" +
+                  "-textFile file : Where to read/write the phone bill\n" +
+                  "-print : Prints a description of the new phone call\n" +
+                  "-README : Prints a README for this project and exits");
       }
 
       else {
@@ -27,105 +38,105 @@ public class Project3 {
 
           //If the argument number is valid
           if (result_argument == 1) {
-
-              //-print option
-              if (args.length == 8) {
-                  if (args[0].equals("-print")) {
-                      PhoneBill phonebill = new PhoneBill(args[1]);
-                      PhoneCall call = new PhoneCall(args[2], args[3], args[4], args[5], args[6], args[7]);  // Refer to one of Dave's classes so that we can be sure it is on the classpath
-                      phonebill.addPhoneCall(call);
-                      System.out.println(call.toString());
-                  } else System.err.println("Invalid option");
-
-              }
-              //-README option
-              if (args.length == 1 && args[0].equals("-README")) {
-
-                  try
-                  { InputStream readme = Project3.class.getResourceAsStream("README.txt");
-                  BufferedReader reader = new BufferedReader(new InputStreamReader(readme));
-                  String line = null;
-                  while ((line = reader.readLine()) != null)
-                  {
-                      System.out.println(line);
+              switch(args.length) {
+                  //-print option
+                  case (10): {
+                      if (args[0].equals("-print")) {
+                          PhoneBill phonebill = new PhoneBill(args[1]);
+                          PhoneCall call = new PhoneCall(args[2], args[3], args[4], args[5], args[6], args[7],args[8],args[9]);  // Refer to one of Dave's classes so that we can be sure it is on the classpath
+                          phonebill.addPhoneCall(call);
+                          System.out.println(call.toString());
+                      } else System.err.println("Invalid option");
+                      break;
                   }
-                  }
-                  catch(IOException e){
-                      System.err.println("Error with README.txt");
-                  }
-              }
-              //Text File option
-              if (args.length == 9 && args[0].equals("-textFile")){
-                      //If file exists
-                      if (ExistFile(args[1])){
+                  //-README option
+                  case (1): {
+                      if (args[0].equals("-README")) {
+
                           try {
-                               File text_file = new File(args[1]);
-                              //Read the text file and create a new phone bill
-                               PhoneBill bill = ReadFile(text_file);
-                               if (!bill.getCustomer().equalsIgnoreCase(args[2])){
-                                   throw new InvalidPhoneCallArgument("NotFoundCustomer");
-                               }
-                               //validate phone call info before create it.
-                               PhoneCall call = CreatePhoneCall(args);
-                              //Add the phone call on the command line to the phone bill
-                               bill.addPhoneCall(call);
-
-                              //Write the new added phone bill to text file
-                              WritePhoneBillToTextFile(text_file,bill);
-                          }
-                          catch(ParserException | IOException | InvalidPhoneCallArgument e){
-                              System.err.println(e.getMessage());
+                              InputStream readme = Project3.class.getResourceAsStream("README.txt");
+                              BufferedReader reader = new BufferedReader(new InputStreamReader(readme));
+                              String line = null;
+                              while ((line = reader.readLine()) != null) {
+                                  System.out.println(line);
+                              }
+                          } catch (IOException e) {
+                              System.err.println("Error with README.txt");
                           }
                       }
-                      //If not exist
-                      else{
-
-                          try{
-                              File text_file = new File(args[1]);
-                              if(text_file.createNewFile()){
-                                  //Create a new phone bill
-                                  PhoneBill bill = new PhoneBill(args[2]);
-                                  //Add the new phone call
-                                  PhoneCall call = CreatePhoneCall(args);
-                                  bill.addPhoneCall(call);
-                                  WritePhoneBillToTextFile(text_file,bill);
+                      break;
+                  }
+                  //Text File option
+                  case (11): {
+                      if (args[0].equals("-textFile")) {
+                          if (ExistFile(args[1])) { //If file exists
+                              try {
+                                  File text_file = new File(args[1]);
+                                  //Read the text file and create a new phone bill
+                                  PhoneBill bill = ReadFile(text_file);
+                                  if (!bill.getCustomer().equalsIgnoreCase(args[2])) {
+                                      throw new InvalidPhoneCallArgument("NotFoundCustomer");
+                                  }
+                                  PhoneCall call = CreatePhoneCall(args);//validate phone call info before create it.
+                                  bill.addPhoneCall(call); //Add the phone call on the command line to the phone bill
+                                  WritePhoneBillToTextFile(text_file, bill); //Write the new added phone bill to text file
+                              } catch (ParserException | IOException | InvalidPhoneCallArgument e) {
+                                  System.err.println(e.getMessage());
+                              }
+                          } else {  //If not exist
+                              try {
+                                  File text_file = new File(args[1]);
+                                  if (text_file.createNewFile()) {
+                                      PhoneBill bill = new PhoneBill(args[2]); //Create a new phone bill
+                                      PhoneCall call = CreatePhoneCall(args); //Add the new phone call
+                                      bill.addPhoneCall(call);
+                                      WritePhoneBillToTextFile(text_file, bill);
+                                  }
+                              } catch (IOException | InvalidPhoneCallArgument e) {
+                                  System.err.println(e.getMessage());
                               }
                           }
-                          catch(IOException | InvalidPhoneCallArgument e){
 
-                              System.err.println(e.getMessage());
+
+                      }
+
+                      //-pretty file option
+
+                          if (args[0].equals("-pretty")){
 
                           }
+                      break;
                       }
 
 
-                  }
 
-              //Normal command line arguments
-              if (args.length == 7) {
-                  /*Validate phone number*/
-                  if ((!isValidPhoneNumber(args[1])) || (!isValidPhoneNumber(args[2]))) {
-                      System.err.println("Invalid phone number");
-                  }
-                  //Validate date
-                  if (!isValidDate(args[3]) || !isValidDate(args[5])) {
-                      boolean result_date = isValidDate(args[3]);
-                      //System.out.println(result_date + "result date\n");
-                      System.err.println("Invalid date");
-                  }
-                  //Validate time
-                  if ((!isValidTime(args[4])) || (!isValidTime(args[6]))) {
-                      boolean result_time = isValidTime(args[4]);
-                      //System.out.println(result_time + "result time\n");
-                      System.err.println("Invalid time");
-                  }
 
-                  PhoneBill phonebill = new PhoneBill(args[0]);
-                  PhoneCall call = new PhoneCall(args[1], args[2], args[3], args[4], args[5], args[6]);  // Refer to one of Dave's classes so that we can be sure it is on the classpath
+                  //Normal command line arguments
+                  case (9): {     /*Validate phone number*/
+                      if ((!isValidPhoneNumber(args[1])) || (!isValidPhoneNumber(args[2]))) {
+                          System.err.println("Invalid phone number");
+                      }
+                      //Validate date
+                      if (!isValidDate(args[3]) || !isValidDate(args[5])) {
+                          boolean result_date = isValidDate(args[3]);
+                          //System.out.println(result_date + "result date\n");
+                          System.err.println("Invalid date");
+                      }
+                      //Validate time
+                      if ((!isValidTime(args[4],args[5])) || (!isValidTime(args[6],args[7]))) {
+                          System.err.println("Invalid time");
+                      }
 
-                  phonebill.addPhoneCall(call);
-               /*for (String arg : args) {
+                      PhoneBill phonebill = new PhoneBill(args[0]);
+                      PhoneCall call = new PhoneCall(args[1], args[2], args[3], args[4], args[5], args[6],args[7],args[8]);  // Refer to one of Dave's classes so that we can be sure it is on the classpath
+
+                      phonebill.addPhoneCall(call);
+                      break;
+                      /*for (String arg : args) {
                    System.out.println(arg);*/
+                  }
+
+
               }
 
 
@@ -223,12 +234,10 @@ static boolean isValidDate(String date) {
   return match.matches();
 }
 @VisibleForTesting
-  static boolean isValidTime(String time) {
-
-  String regex = "[0-2][0-9]:[0-6][0-9]";
+  static boolean isValidTime(String number, String zone) {
+      String regex = "(1[012]|[1-9]):[0-5][0-9]"+"(am|pm)";
   Pattern P = Pattern.compile(regex);
-  if (time == null) return false;
-  Matcher match = P.matcher(time);
+  Matcher match = P.matcher(number + zone);
 
   return match.matches();
 
@@ -250,11 +259,11 @@ static boolean isValidDate(String date) {
       else if (!isValidDate(args[5]) || !isValidDate(args[7])){
           throw new InvalidPhoneCallArgument("Invalid date.");
       }
-      else if (!isValidTime(args[6]) || !isValidTime(args[8])){
+      else if (!isValidTime(args[6],args[7]) || !isValidTime(args[8],args[9])){
           throw new InvalidPhoneCallArgument("Invalid time.");
       }
       else{
-          return new PhoneCall(args[3],args[4],args[5],args[6],args[7], args[8]);
+          return new PhoneCall(args[3],args[4],args[5],args[6],args[7], args[8],args[9],args[10]);
       }
 
 }

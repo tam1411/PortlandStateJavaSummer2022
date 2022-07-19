@@ -38,7 +38,7 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
                     throw new ParserException("Missing phone call information");
                 }
             }
-            PhoneCall call = new PhoneCall(array[0], array[1], array[2], array[3], array[4], array[5]);
+            PhoneCall call = new PhoneCall(array[0], array[1], array[2], array[3], array[4], array[5],array[6],array[7]);
             bill.addPhoneCall(call);
 
             //Read the next line until it's the end of file
@@ -72,7 +72,7 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
                         throw new ParserException("Missing phone call information");
                     }
                 }
-                PhoneCall call = new PhoneCall(array[0], array[1], array[2], array[3], array[4], array[5]);
+                PhoneCall call = new PhoneCall(array[0], array[1], array[2], array[3], array[4], array[5],array[6],array[7]);
                 bill.addPhoneCall(call);
 
                 //Read the next line until it's the end of file
