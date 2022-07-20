@@ -1,7 +1,7 @@
 package edu.pdx.cs410J.tn27;
 
 import edu.pdx.cs410J.AbstractPhoneCall;
-import edu.pdx.cs410J.ParserException;
+//import edu.pdx.cs410J.ParserException;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -100,10 +100,10 @@ public class PhoneCall extends AbstractPhoneCall implements Comparable<PhoneCall
 
   }
   public long CalculateDurationMins(){
-     long var = this.getBeginTime().getTime() - this.getEndTime().getTime();
-     long result = (var/1000)/60;
+     long var = this.getEndTime().getTime() - this.getBeginTime().getTime();
+     long result = var/(1000*60);
 
-     return result;
+     return (int)result;
 
   }
 

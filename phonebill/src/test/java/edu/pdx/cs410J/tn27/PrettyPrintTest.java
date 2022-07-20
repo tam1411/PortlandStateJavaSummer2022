@@ -18,7 +18,7 @@ public class PrettyPrintTest {
         String customer = "Tam";
         PhoneBill bill = new PhoneBill(customer);
         PhoneCall call1 = new PhoneCall("789", "0", "01/12/2022", "8:46", "am", "01/12/2022", "8:50", "am");
-        PhoneCall call2 = new PhoneCall("456", "0", "01/12/2022", "8:50", "am", "01/12/2022", "8:50", "am");
+        PhoneCall call2 = new PhoneCall("456", "0", "01/12/2022", "8:50", "am", "01/12/2022", "8:50", "pm");
         PhoneCall call3 = new PhoneCall("712", "0", "01/12/2022", "8:50", "am", "01/12/2022", "8:50", "am");
         bill.addPhoneCall(call3);
         bill.addPhoneCall(call2);
@@ -30,8 +30,8 @@ public class PrettyPrintTest {
         dumper.dump(bill);
 
         String text = sw.toString();
-        String text_string = "Tam\r\n" + "712 0 1/12/22, 8:50 AM 1/12/22, 8:50 AM\r\n" +
-          "456 0 1/12/22, 8:50 AM 1/12/22, 8:50 AM\r\n" +"789 0 1/12/22, 8:46 AM 1/12/22, 8:50 AM\r\n"  ;
+        String text_string = "Tam\r\n" + "712 0 1/12/22, 8:50 AM 1/12/22, 8:50 AM 0minute(s)\r\n" +
+          "456 0 1/12/22, 8:50 AM 1/12/22, 8:50 PM 720minute(s)\r\n" +"789 0 1/12/22, 8:46 AM 1/12/22, 8:50 AM 4minute(s)\r\n"  ;
         assertThat(text,equalTo(text_string));
 
 

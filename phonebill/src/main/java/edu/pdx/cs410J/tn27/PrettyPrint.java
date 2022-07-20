@@ -26,7 +26,7 @@ public class PrettyPrint implements PhoneBillDumper<PhoneBill> {
             for (int i = 0; i < calls.size(); ++i) {
                 PhoneCall new_call = calls.get(i);
                 String line = new_call.getCaller() + " " + new_call.getCallee() + " "
-                        + new_call.getBeginTimeString() + " " + new_call.getEndTimeString();
+               + new_call.getBeginTimeString() + " " + new_call.getEndTimeString() + " "+new_call.CalculateDurationMins() +"minute(s)";
                 pw.println(line);
 
             }
