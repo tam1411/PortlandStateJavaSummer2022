@@ -38,10 +38,10 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
   }
 
   @VisibleForTesting
-  public void SortCollectionPhoneCalls() throws Exception {
+  public void SortCollectionPhoneCalls() {
     //Assume that we already have a list of Phone Calls in random order.
     //Using selection sort to sort the time from most recent to the farthest"
-    if (this.call == null) throw new Exception("Empty List");
+
     for (int left = 0; left < this.call.size() -1; ++left){
 
       for ( int right = left + 1; right < this.call.size(); ++right){
@@ -54,6 +54,13 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
 
            }
       }
+    }
+    public String PrintStandardOut(){
+       PhoneCall call = this.call.get(0);
+       String result = this.customer+ "\n" + call.getCaller()+ " "+ call.getCallee()+ " "+
+               call.getBeginTimeString()+" "+ call.getEndTimeString();
+       return result;
+
     }
 
   }

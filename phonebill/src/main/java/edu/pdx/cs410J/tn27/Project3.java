@@ -102,7 +102,9 @@ public class Project3 {
 
                       //-pretty file option
 
-                          if (args[0].equals("-pretty")){
+
+                          if (args[0].equals("-pretty"))
+                          {
                               if (ExistFile(args[1])) {
                                   try {
                                       File text_file = new File(args[1]);
@@ -118,23 +120,47 @@ public class Project3 {
                                   } catch (InvalidPhoneCallArgument | ParserException | IOException e) {
                                       System.err.println(e.getMessage());
                                   }
+                              } else if(args[1].equals("-")){
+                                  try {
+                                      PhoneBill bill = new PhoneBill(args[2]);
+                                      PhoneCall call = CreatePhoneCall(args);
+                                      bill.addPhoneCall(call);
+                                      System.out.println(bill.PrintStandardOut());
+                                  }
+                                  catch(InvalidPhoneCallArgument e){
+                                      System.err.println(e.getMessage());
+                                  }
+
                               }
-                              else {
+
+
+
+
+
+
+
+
+
+
+                              else  {
                                   try {
                                       File text_file = new File(args[1]);
+                                      PhoneCall call = CreatePhoneCall(args); //Add the new phone call
                                       if (text_file.createNewFile()) {
                                           PhoneBill bill = new PhoneBill(args[2]); //Create a new phone bill
-                                          PhoneCall call = CreatePhoneCall(args); //Add the new phone call
                                           bill.addPhoneCall(call);
                                           PrettyPrint dumper = new PrettyPrint(new FileWriter(text_file));
                                           dumper.dump(bill);
                                       }
-                                      } catch(IOException | InvalidPhoneCallArgument e){
-                                          System.err.println(e.getMessage());
-                                      }
+                                  } catch (IOException | InvalidPhoneCallArgument e) {
+                                      System.err.println(e.getMessage());
+                                  }
 
                               }
                           }
+                         else{
+                            System.err.println("Invalid option");
+                             }
                       break;
                       }
 
@@ -153,7 +179,7 @@ public class Project3 {
                           System.err.println("Invalid date");
                       }
                       //Validate time
-                      if ((!isValidTime(args[4],args[5])) || (!isValidTime(args[6],args[7]))) {
+                      if ((!isValidTime(args[6],args[7])) || (!isValidTime(args[9],args[10]))) {
                           System.err.println("Invalid time");
                       }
 
@@ -286,10 +312,10 @@ static boolean isValidDate(String date) {
       if (!isValidPhoneNumber(args[3]) || !isValidPhoneNumber(args[4])){
           throw new InvalidPhoneCallArgument("Invalid phone number.");
       }
-      else if (!isValidDate(args[5]) || !isValidDate(args[7])){
+      else if (!isValidDate(args[5]) || !isValidDate(args[8])){
           throw new InvalidPhoneCallArgument("Invalid date.");
       }
-      else if (!isValidTime(args[6],args[7]) || !isValidTime(args[8],args[9])){
+      else if (!isValidTime(args[6],args[7]) || !isValidTime(args[9],args[10])){
           throw new InvalidPhoneCallArgument("Invalid time.");
       }
       else{

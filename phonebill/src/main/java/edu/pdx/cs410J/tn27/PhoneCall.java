@@ -100,10 +100,9 @@ public class PhoneCall extends AbstractPhoneCall implements Comparable<PhoneCall
     return -1;
 
   }
-  public long CalculateDurationMins(){
+  public long CalculateDurationMins()  {
      long var = this.getEndTime().getTime() - this.getBeginTime().getTime();
      long result = var/(1000*60);
-
      return (int)result;
 
   }
