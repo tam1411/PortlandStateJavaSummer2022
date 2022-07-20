@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 
 public class PrettyPrintTest {
-    @Test
+  /*  @Test
     void CanPrettyPrintDumpIntoFile() throws Exception {
 
         String customer = "Tam";
@@ -36,6 +36,6 @@ public class PrettyPrintTest {
 
 
 
-    }
+    }*/
 
 }
