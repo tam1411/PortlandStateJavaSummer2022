@@ -13,7 +13,7 @@ public class AboutLocalTime {
     @Koan
     public void localTime() {
         LocalTime t1 = LocalTime.of(7, 30);
-        assertEquals(t1, LocalTime.parse(__));
+        assertEquals(t1, LocalTime.parse("7:30"));
     }
 
     @Koan
