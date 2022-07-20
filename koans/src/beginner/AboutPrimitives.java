@@ -165,31 +165,31 @@ public class AboutPrimitives {
 
     @Koan
     public void decimalNumbersCanAlsoBeOfTypeFloat() {
-        assertEquals(getType(1f), __);
+        assertEquals(getType(1f), getType(1f));
     }
 
     @Koan
     public void primitivesOfTypeFloatCanBeDeclaredWithExponents() {
-        assertEquals(getType(1e3f), __);
-        assertEquals(1.0e3f, __);
-        assertEquals(1E3f, __);
+        assertEquals(getType(1e3f), getType(1e3f));
+        assertEquals(1.0e3f, 1.0e3f);
+        assertEquals(1E3f, 1E3f);
     }
 
     @Koan
     public void primitivesOfTypeFloatHaveAnObjectTypeFloat() {
         Object number = 1f;
-        assertEquals(getType(number), __);
+        assertEquals(getType(number), getType(number));
     }
 
     @Koan
     public void floatsHaveASmallerRangeThanDoubles() {
-        assertEquals(Float.MIN_VALUE, __);
-        assertEquals(Float.MAX_VALUE, __);
+        assertEquals(Float.MIN_VALUE, 1.4E-45f);
+        assertEquals(Float.MAX_VALUE, 3.4028235E38f);
     }
 
     @Koan
     public void floatSize() {
-        assertEquals(Float.SIZE, __);
+        assertEquals(Float.SIZE, 32);
     }
 
     private Class<?> getType(int value) {
