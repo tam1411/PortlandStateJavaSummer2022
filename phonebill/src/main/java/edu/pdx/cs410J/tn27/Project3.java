@@ -7,8 +7,11 @@ import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static edu.pdx.cs410J.tn27.validateinfo.*;
+
 /**
  * The main class for the CS410J Phone Bill Project
+ *
  */
 public class Project3 {
 
@@ -23,8 +26,8 @@ public class Project3 {
                   "customer: Person whose phone bill we arere modeling\n" +
                   "callerNumber: Phone number of caller\n" +
                   "calleeNumber: Phone number of person who was called\n" +
-                  "begin Date and time call began (24-hour time)\n" +
-                  "end Date and time call ended (24-hour time)\n" +
+                  "begin Date and time call began (12-hour time)\n" +
+                  "end Date and time call ended (12-hour time)\n" +
                   "options are (options may appear in any order):\n" +
                   "-textFile file : Where to read/write the phone bill\n" +
                   "-print : Prints a description of the new phone call\n" +
@@ -106,18 +109,24 @@ public class Project3 {
                           if (args[0].equals("-pretty"))
                           {
                               if (ExistFile(args[1])) {
+                                  PhoneBill bill = new PhoneBill(args[2]);
                                   try {
                                       File text_file = new File(args[1]);
                                       //Read the text file and create a new phone bill
-                                      PhoneBill bill = ReadFile(text_file);
+                                        try {
+                                             bill = ReadFile(text_file);
+                                            }catch(ParserException ex){
+                                                ex.getMessage();
+                                            }
                                       if (!bill.getCustomer().equalsIgnoreCase(args[2])) {
                                           throw new InvalidPhoneCallArgument("NotFoundCustomer");
                                       }
+
                                       PhoneCall call = CreatePhoneCall(args);//validate phone call info before create it.
                                       bill.addPhoneCall(call); //Add the phone call on the command line to the phone bill
                                       PrettyPrint dumper = new PrettyPrint(new FileWriter(text_file));
                                       dumper.dump(bill);
-                                  } catch (InvalidPhoneCallArgument | ParserException | IOException e) {
+                                  } catch (InvalidPhoneCallArgument  | IOException e) {
                                       System.err.println(e.getMessage());
                                   }
                               } else if(args[1].equals("-")){
@@ -127,20 +136,11 @@ public class Project3 {
                                       bill.addPhoneCall(call);
                                       System.out.println(bill.PrintStandardOut());
                                   }
-                                  catch(InvalidPhoneCallArgument e){
+                                  catch(InvalidPhoneCallArgument | ParserException e){
                                       System.err.println(e.getMessage());
                                   }
 
                               }
-
-
-
-
-
-
-
-
-
 
                               else  {
                                   try {
@@ -158,9 +158,9 @@ public class Project3 {
 
                               }
                           }
-                         else{
-                            System.err.println("Invalid option");
-                             }
+                         //else{
+                            //System.err.println("Invalid option");
+                             //}
                       break;
                       }
 
@@ -169,6 +169,7 @@ public class Project3 {
 
                   //Normal command line arguments
                   case (9): {     /*Validate phone number*/
+
                       if ((!isValidPhoneNumber(args[1])) || (!isValidPhoneNumber(args[2]))) {
                           System.err.println("Invalid phone number");
                       }
@@ -265,39 +266,7 @@ static boolean ExistFile(String file_name){
     }
     return 1;
   }
- //Function to test if user enter valid phone number
-  @VisibleForTesting
-  static boolean isValidPhoneNumber(String phoneNumber) {
 
-    String regex = "[0-9]{3}-[0-9]{3}-[0-9]{4}";
-    Pattern P = Pattern.compile(regex);
-    if(phoneNumber == null) return false;
-    Matcher match = P.matcher(phoneNumber);
-
-    return match.matches();
-  }
-
-
-@VisibleForTesting
-//Function to test for valid date
-static boolean isValidDate(String date) {
-
-  String regex = "[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}";
-  Pattern P = Pattern.compile(regex);
-  if(date == null) return false;
-  Matcher match = P.matcher(date);
-
-  return match.matches();
-}
-@VisibleForTesting
-  static boolean isValidTime(String number, String zone) {
-      String regex = "(1[012]|[1-9]):[0-5][0-9]"+"(am|pm)";
-  Pattern P = Pattern.compile(regex);
-  Matcher match = P.matcher(number + zone);
-
-  return match.matches();
-
-}
 @VisibleForTesting
     //Extend from exception
     static class InvalidPhoneCallArgument extends Exception{
@@ -323,8 +292,5 @@ static boolean isValidDate(String date) {
       }
 
 }
-
-
-
 
 }

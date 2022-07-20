@@ -2,8 +2,16 @@ package edu.pdx.cs410J.tn27;
 
 import com.google.common.annotations.VisibleForTesting;
 import edu.pdx.cs410J.AbstractPhoneBill;
+import edu.pdx.cs410J.ParserException;
 
 import java.util.*;
+
+/** Create the Phone bill object
+ *  a new object of phone bill
+ *  include customer's name and the list of phone calls
+ *
+ */
+
 
 public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
   private final String customer;
@@ -55,10 +63,11 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
            }
       }
     }
-    public String PrintStandardOut(){
+    //Support the standard out for pretty print.
+    public String PrintStandardOut() throws ParserException {
        PhoneCall call = this.call.get(0);
        String result = this.customer+ "\n" + call.getCaller()+ " "+ call.getCallee()+ " "+
-               call.getBeginTimeString()+" "+ call.getEndTimeString();
+               call.getBeginTimeString()+" "+ call.getEndTimeString() + " "+call.CalculateDurationMins()+ "Minute(s)";
        return result;
 
     }

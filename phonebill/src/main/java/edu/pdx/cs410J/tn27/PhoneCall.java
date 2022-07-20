@@ -1,6 +1,7 @@
 package edu.pdx.cs410J.tn27;
 
 import edu.pdx.cs410J.AbstractPhoneCall;
+import edu.pdx.cs410J.ParserException;
 //import edu.pdx.cs410J.ParserException;
 
 import java.text.DateFormat;
@@ -8,6 +9,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+/**  Create a new Phone call object
+ *   include all the valid information on the command line.
+ *
+ */
 public class PhoneCall extends AbstractPhoneCall implements Comparable<PhoneCall>{
   private final String caller_number;
   private final String callee_number;
@@ -100,12 +106,16 @@ public class PhoneCall extends AbstractPhoneCall implements Comparable<PhoneCall
     return -1;
 
   }
-  public long CalculateDurationMins()  {
+  public long CalculateDurationMins() throws ParserException {
      long var = this.getEndTime().getTime() - this.getBeginTime().getTime();
      long result = var/(1000*60);
-     return (int)result;
+     if (result < 0) {
+       throw new ParserException("End time is less than begin time");
+     }
+     else return (int)result;
 
   }
+  //Return the normal date and time wihout DateFormat.
   public String NormalBegin(){
     return this.begin_date + " "+ this.begin_time +" "+ this.begin_zone;
   }

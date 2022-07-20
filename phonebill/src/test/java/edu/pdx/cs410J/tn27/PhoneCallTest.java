@@ -16,8 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit tests for the {@link PhoneCall} class.
- *
- * You'll need to update these unit tests as you build out your program.
+ *       Handle every individual cases on phone call class.
  */
 public class PhoneCallTest {
 
@@ -65,35 +64,8 @@ public class PhoneCallTest {
         assertThat(var.ValidArgument("name", null, null, "123", "name", "1"), equalTo(-1));
     }
 
-    //Test for invalid phone number
-    @Test
-    void InvalidPhoneNumber() {
-        Project3 var = new Project3();
-        boolean result = var.isValidPhoneNumber("123-46-abcd");
-        if (!result) {
-            assertThat("Invalid phone number", equalTo("Invalid phone number"));
 
-        }
-    }
 
-    //Test for an invalid date
-    @Test
-    void InvalidDate() {
-        Project3 var = new Project3();
-        boolean result = var.isValidDate("123/12/2011");
-
-        assertThat(result, equalTo(false));
-
-    }
-
-    //Test for an valid time
-    @Test
-    void validTime() {
-        Project3 var = new Project3();
-        boolean result = var.isValidTime("2:59", "am");
-        assertThat(result, equalTo(true));
-
-    }
 
     @Test
         //Test for an invalid file name
