@@ -50,31 +50,7 @@ public class PhoneCallTest {
         assertThat(call.getCallee(), equalTo(callee_number));
     }
 
-    //Test to see if we will receive the begin time as expected
-    @Test
-    void BeginTimeIsBeginTime() {
-        //Given begin time
-        String begin_time = "03/15/2021 10:35";
-        PhoneCall call = CreatePhone(null, null, null, begin_time, null, null, null, null);
-        assertThat(call.getBeginTimeString(), equalTo(begin_time));
 
-    }
-
-    //Test to see if we will receive the end time as expected
-    @Test
-    void EndTimeIsEndTime() {
-        //Given end time
-        String end_time = "04/15/2021 11:35";
-        PhoneCall call = CreatePhone(null, null, null, null, null, null, end_time, null);
-        assertThat(call.getEndTimeString(), equalTo(end_time));
-    }
-
-    //Test if there is no argument
-   /* @Test
-    void validateNoArgument(){
-        Project1 var = new Project1();
-        assertThat(var.ValidArgument(),equalTo("Missing command line arguments\n"));
-    }*/
     //Test if there is not enough argument
     @Test
     void ValidateNotEnoughArgument() {
@@ -206,6 +182,8 @@ public class PhoneCallTest {
         //Expect the order is call3, call2, call1 (From most recent to oldest).
         assertThat(bill.getPhoneCalls(),equalTo(call));
     }
+
+
 }
 
 

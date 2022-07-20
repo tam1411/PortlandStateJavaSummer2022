@@ -45,7 +45,8 @@ public class PhoneCall extends AbstractPhoneCall implements Comparable<PhoneCall
 
     Date begin = getBeginTime();
     DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.SHORT);
-    return df.format(begin);
+    String result = df.format(begin);
+    return result;
   }
 
   @Override
@@ -105,6 +106,12 @@ public class PhoneCall extends AbstractPhoneCall implements Comparable<PhoneCall
 
      return (int)result;
 
+  }
+  public String NormalBegin(){
+    return this.begin_date + " "+ this.begin_time +" "+ this.begin_zone;
+  }
+  public String NormalEnd(){
+    return this.end_date + " " + this.end_time + " "+ this.end_zone;
   }
 
 

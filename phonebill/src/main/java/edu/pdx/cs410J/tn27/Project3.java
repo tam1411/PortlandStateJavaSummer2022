@@ -103,7 +103,37 @@ public class Project3 {
                       //-pretty file option
 
                           if (args[0].equals("-pretty")){
+                              if (ExistFile(args[1])) {
+                                  try {
+                                      File text_file = new File(args[1]);
+                                      //Read the text file and create a new phone bill
+                                      PhoneBill bill = ReadFile(text_file);
+                                      if (!bill.getCustomer().equalsIgnoreCase(args[2])) {
+                                          throw new InvalidPhoneCallArgument("NotFoundCustomer");
+                                      }
+                                      PhoneCall call = CreatePhoneCall(args);//validate phone call info before create it.
+                                      bill.addPhoneCall(call); //Add the phone call on the command line to the phone bill
+                                      PrettyPrint dumper = new PrettyPrint(new FileWriter(text_file));
+                                      dumper.dump(bill);
+                                  } catch (InvalidPhoneCallArgument | ParserException | IOException e) {
+                                      System.err.println(e.getMessage());
+                                  }
+                              }
+                              else {
+                                  try {
+                                      File text_file = new File(args[1]);
+                                      if (text_file.createNewFile()) {
+                                          PhoneBill bill = new PhoneBill(args[2]); //Create a new phone bill
+                                          PhoneCall call = CreatePhoneCall(args); //Add the new phone call
+                                          bill.addPhoneCall(call);
+                                          PrettyPrint dumper = new PrettyPrint(new FileWriter(text_file));
+                                          dumper.dump(bill);
+                                      }
+                                      } catch(IOException | InvalidPhoneCallArgument e){
+                                          System.err.println(e.getMessage());
+                                      }
 
+                              }
                           }
                       break;
                       }

@@ -19,7 +19,7 @@ public class TextDumperTest {
     //and one phone call.
     String customer = "Test Phone Bill";
     PhoneBill bill = new PhoneBill(customer);
-    PhoneCall new_call = new PhoneCall("123-456-7890", "123-456-7890", "12/30", "12:30","am", "12/31", "12:31","am");
+    PhoneCall new_call = new PhoneCall("123-456-7890", "123-456-7890", "12/30/2011", "12:30","AM", "12/31/2012", "12:31","AM");
     bill.addPhoneCall(new_call);
 
 
@@ -55,8 +55,8 @@ public class TextDumperTest {
     //Given a collection of phone calls in a phone bill.
     String customer = "Test Phone Bill";
     PhoneBill bill = new PhoneBill(customer);
-    PhoneCall new_call = new PhoneCall("123-456-7890", "123-456-7890","12/30", "12:30","am","12/31","12:31","am");
-    PhoneCall new_call1 = new PhoneCall("503-123-4561", "123-456-7890","12/30", "12:30","am","12/31","12:31","am");
+    PhoneCall new_call = new PhoneCall("123-456-7890", "123-456-7890","01/10/2011", "12:30","am","12/31/2011","12:31","am");
+    PhoneCall new_call1 = new PhoneCall("503-123-4561", "123-456-7890","12/30/2011", "12:30","am","12/3/2012","12:31","am");
     bill.addPhoneCall(new_call);
     bill.addPhoneCall(new_call1);
 
@@ -73,5 +73,7 @@ public class TextDumperTest {
     assertThat(read.getCustomer(), equalTo(customer));
     assertThat(call1.toString(),equalTo(new_call.toString()));
     assertThat(call2.toString(),equalTo(new_call1.toString()));
-  }
+    }
+
+
 }

@@ -29,7 +29,7 @@ public class TextParserTest {
 
     //Given a collection of 1 phone call
     PhoneBill bill3 = new PhoneBill("Test Phone Bill");
-    PhoneCall new_call = new PhoneCall("123-456-7890", "123-456-7890","12/30", "12:30","am","12/31","12:31","am");
+    PhoneCall new_call = new PhoneCall("123-456-7890", "123-456-7890","12/30/2011", "12:30","AM","12/31/2012","12:31","AM");
 
     bill3.addPhoneCall(new_call);
     assertThat(call1.toString(),equalTo(new_call.toString()));
