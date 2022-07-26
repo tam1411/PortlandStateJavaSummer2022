@@ -4,6 +4,7 @@ import com.google.common.annotations.VisibleForTesting;
 import edu.pdx.cs410J.ParserException;
 
 import java.io.*;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -72,95 +73,20 @@ public class Project3 {
                   //Text File option
                   case (11): {
                       if (args[0].equals("-textFile")) {
-                          if (ExistFile(args[1])) { //If file exists
-                              try {
-                                  File text_file = new File(args[1]);
-                                  //Read the text file and create a new phone bill
-                                  PhoneBill bill = ReadFile(text_file);
-                                  if (!bill.getCustomer().equalsIgnoreCase(args[2])) {
-                                      throw new InvalidPhoneCallArgument("NotFoundCustomer");
-                                  }
-                                  PhoneCall call = CreatePhoneCall(args);//validate phone call info before create it.
-                                  bill.addPhoneCall(call); //Add the phone call on the command line to the phone bill
-                                  WritePhoneBillToTextFile(text_file, bill); //Write the new added phone bill to text file
-                              } catch (ParserException | IOException | InvalidPhoneCallArgument e) {
-                                  System.err.println(e.getMessage());
-                              }
-                          } else {  //If not exist
-                              try {
-                                  File text_file = new File(args[1]);
-                                  if (text_file.createNewFile()) {
-                                      PhoneBill bill = new PhoneBill(args[2]); //Create a new phone bill
-                                      PhoneCall call = CreatePhoneCall(args); //Add the new phone call
-                                      bill.addPhoneCall(call);
-                                      WritePhoneBillToTextFile(text_file, bill);
-                                  }
-                              } catch (IOException | InvalidPhoneCallArgument e) {
-                                  System.err.println(e.getMessage());
-                              }
-                          }
-
-
+                          CreateFile(args[1], args[2], args);
                       }
-
+                      break;
+                  }
+                  case (13): {
                       //-pretty file option
+                          if (args[0].equals("-textFile")){
 
-
-                          if (args[0].equals("-pretty"))
-                          {
-                              if (ExistFile(args[1])) {
-                                  PhoneBill bill = new PhoneBill(args[2]);
-                                  try {
-                                      File text_file = new File(args[1]);
-                                      //Read the text file and create a new phone bill
-                                        try {
-                                             bill = ReadFile(text_file);
-                                            }catch(ParserException ex){
-                                                ex.getMessage();
-                                            }
-                                      if (!bill.getCustomer().equalsIgnoreCase(args[2])) {
-                                          throw new InvalidPhoneCallArgument("NotFoundCustomer");
-                                      }
-
-                                      PhoneCall call = CreatePhoneCall(args);//validate phone call info before create it.
-                                      bill.addPhoneCall(call); //Add the phone call on the command line to the phone bill
-                                      PrettyPrint dumper = new PrettyPrint(new FileWriter(text_file));
-                                      dumper.dump(bill);
-                                  } catch (InvalidPhoneCallArgument  | IOException e) {
-                                      System.err.println(e.getMessage());
-                                  }
-                              } else if(args[1].equals("-")){
-                                  try {
-                                      PhoneBill bill = new PhoneBill(args[2]);
-                                      PhoneCall call = CreatePhoneCall(args);
-                                      bill.addPhoneCall(call);
-                                      System.out.println(bill.PrintStandardOut());
-                                  }
-                                  catch(InvalidPhoneCallArgument | ParserException e){
-                                      System.err.println(e.getMessage());
-                                  }
-
-                              }
-
-                              else  {
-                                  try {
-                                      File text_file = new File(args[1]);
-                                      PhoneCall call = CreatePhoneCall(args); //Add the new phone call
-                                      if (text_file.createNewFile()) {
-                                          PhoneBill bill = new PhoneBill(args[2]); //Create a new phone bill
-                                          bill.addPhoneCall(call);
-                                          PrettyPrint dumper = new PrettyPrint(new FileWriter(text_file));
-                                          dumper.dump(bill);
-                                      }
-                                  } catch (IOException | InvalidPhoneCallArgument e) {
-                                      System.err.println(e.getMessage());
-                                  }
-
+                              if(args[2].equals("-pretty")){
+                                  CreatePretty(args[1],args[3],args[4],args);
                               }
                           }
-                         //else{
-                            //System.err.println("Invalid option");
-                             //}
+                             // CreatePretty(args);
+
                       break;
                       }
 
@@ -180,22 +106,18 @@ public class Project3 {
                           System.err.println("Invalid date");
                       }
                       //Validate time
-                      if ((!isValidTime(args[6],args[7])) || (!isValidTime(args[9],args[10]))) {
-                          System.err.println("Invalid time");
+                      if ((isValidTime(args[6], args[7]))) {
+                          isValidTime(args[9], args[10]);
                       }
+                      System.err.println("Invalid time");
 
                       PhoneBill phonebill = new PhoneBill(args[0]);
                       PhoneCall call = new PhoneCall(args[1], args[2], args[3], args[4], args[5], args[6],args[7],args[8]);  // Refer to one of Dave's classes so that we can be sure it is on the classpath
 
                       phonebill.addPhoneCall(call);
                       break;
-                      /*for (String arg : args) {
-                   System.out.println(arg);*/
                   }
-
-
               }
-
 
           } else {
               //Other case will default to fail to meet the valid argument
@@ -204,8 +126,130 @@ public class Project3 {
           }
       }
    }
- //Function to read and create the new phone bill with phone call
- //When the file exists
+
+    /** Function to perform pretty functionality
+     * @param args
+     *        from the command line
+     * @param option
+     *        parse from the command line
+     * @param customer
+     *        parse from the command line
+     * @param file_name
+     *        parse from the command line
+     */
+
+    static void CreatePretty(String file_name, String option, String customer, String... args) {
+
+        if (ExistFile(file_name)) {
+            PhoneBill bill = new PhoneBill(customer);
+            try {
+                File text_file = new File(file_name);
+                //Read the text file and create a new phone bill
+                  try {
+                       bill = ReadFile(text_file);
+                      }catch(ParserException ex){
+                          ex.getMessage();
+                      }
+                if (!bill.getCustomer().equalsIgnoreCase(customer)) {
+                    throw new InvalidPhoneCallArgument("NotFoundCustomer");
+                }
+
+                PhoneCall call = CreatePhoneCallPretty(args);//validate phone call info before create it.
+                bill.addPhoneCall(call); //Add the phone call on the command line to the phone bill
+
+                if(option.equals("-")) {
+                    try {
+                        CreateFile(file_name, customer, args);
+                        PrintStandardOut(bill);
+                    } catch (ParserException e) {
+                        System.err.println(e.getMessage());
+                    }
+                }
+                else {
+                    PrettyPrint dumper = new PrettyPrint(new FileWriter(text_file));
+                    dumper.dump(bill);
+                }
+            } catch (InvalidPhoneCallArgument  | IOException e) {
+                System.err.println(e.getMessage());
+            }
+        }
+
+        else  {
+            try {
+                File text_file = new File(file_name);
+                PhoneCall call = CreatePhoneCallPretty(args); //Add the new phone call
+                if (text_file.createNewFile()) {
+                    PhoneBill bill = new PhoneBill(customer); //Create a new phone bill
+                    bill.addPhoneCall(call);
+                    PrettyPrint dumper = new PrettyPrint(new FileWriter(text_file));
+                    dumper.dump(bill);
+                }
+            } catch (IOException | InvalidPhoneCallArgument e) {
+                System.err.println(e.getMessage());
+            }
+
+        }
+    }
+    static void PrintStandardOut(PhoneBill bill) throws ParserException {
+        List<PhoneCall> call = (List<PhoneCall>)bill.getPhoneCalls();
+        //List<String> result = null;
+        System.out.println(bill.getCustomer()+"\n");
+        for (int i = 0; i < call.size(); ++i){
+            String each= call.get(i).getCaller()+ " "+ call.get(i).getCallee()+ " "+
+                  call.get(i).getBeginTimeString()+" "+ call.get(i).getEndTimeString() + " "+call.get(i).CalculateDurationMins()+ "Minute(s)";
+            //result.add(i,each);
+            System.out.println(each+ "\n");
+        }
+
+
+
+
+    }
+
+    /**Function to read and write to file.
+     * @param args : from the command line
+     * @param file_name : parse from the command line
+     * @param customer : parse from the command line.
+     */
+
+    private static void CreateFile(String file_name, String customer, String... args) {
+        if (ExistFile(file_name)) { //If file exists
+            try {
+                File text_file = new File(file_name);
+                //Read the text file and create a new phone bill
+                PhoneBill bill = ReadFile(text_file);
+                if (!bill.getCustomer().equalsIgnoreCase(customer)) {
+                    throw new InvalidPhoneCallArgument("NotFoundCustomer");
+                }
+                PhoneCall call = CreatePhoneCall(args);//validate phone call info before create it.
+                bill.addPhoneCall(call); //Add the phone call on the command line to the phone bill
+                WritePhoneBillToTextFile(text_file, bill); //Write the new added phone bill to text file
+            } catch (ParserException | IOException | InvalidPhoneCallArgument e) {
+                System.err.println(e.getMessage());
+            }
+        } else {  //If not exist
+            try {
+                File text_file = new File(file_name);
+                if (text_file.createNewFile()) {
+                    PhoneBill bill = new PhoneBill(customer); //Create a new phone bill
+                    PhoneCall call = CreatePhoneCall(args); //Add the new phone call
+                    bill.addPhoneCall(call);
+                    WritePhoneBillToTextFile(text_file, bill);
+                }
+            } catch (IOException | InvalidPhoneCallArgument e) {
+                System.err.println(e.getMessage());
+            }
+        }
+    }
+
+    /**  Function to read and create the new phone bill with phone call
+     *   When the file exists
+     * @param file_name
+     *         the file parse from the command line
+     * @return PhoneBill
+     *         the complete Phone bill after reading from the file.
+     */
+
  @VisibleForTesting
  static PhoneBill ReadFile(File file_name) throws ParserException {
      try{
@@ -277,20 +321,40 @@ static boolean ExistFile(String file_name){
 }
 //Function to validate each arg before create the phone call for text file purpose
 @VisibleForTesting
-    static PhoneCall CreatePhoneCall (String...args) throws InvalidPhoneCallArgument{
-      if (!isValidPhoneNumber(args[3]) || !isValidPhoneNumber(args[4])){
+    static PhoneCall CreatePhoneCall (String caller, String callee, String begin_date, String end_date, String begin_zone,String end_zone,
+                                      String begin_time, String end_time) throws InvalidPhoneCallArgument{
+      if (!isValidPhoneNumber(caller) || !isValidPhoneNumber(callee)){
           throw new InvalidPhoneCallArgument("Invalid phone number.");
       }
-      else if (!isValidDate(args[5]) || !isValidDate(args[8])){
+      else if (!isValidDate(begin_date) || !isValidDate(end_date)){
           throw new InvalidPhoneCallArgument("Invalid date.");
       }
-      else if (!isValidTime(args[6],args[7]) || !isValidTime(args[9],args[10])){
+      else if (!isValidTime(begin_time,begin_zone) || !isValidTime(end_time,end_zone))
+     {
           throw new InvalidPhoneCallArgument("Invalid time.");
       }
       else{
-          return new PhoneCall(args[3],args[4],args[5],args[6],args[7], args[8],args[9],args[10]);
+          return new PhoneCall(caller,callee,begin_date,begin_time,begin_zone,end_date,end_time,end_zone);
       }
 
 }
+
+//Function to validate each arg before create the phone call for pretty purpose
+    @VisibleForTesting
+    static PhoneCall CreatePhoneCallPretty (String...args) throws InvalidPhoneCallArgument{
+        if (!isValidPhoneNumber(args[5]) || !isValidPhoneNumber(args[6])){
+            throw new InvalidPhoneCallArgument("Invalid phone number.");
+        }
+        else if (!isValidDate(args[7]) || !isValidDate(args[10])){
+            throw new InvalidPhoneCallArgument("Invalid date.");
+        }
+        else if (!isValidTime(args[8],args[9]) || !isValidTime(args[11],args[12])){
+            throw new InvalidPhoneCallArgument("Invalid time.");
+        }
+        else{
+            return new PhoneCall(args[5],args[6],args[7],args[8],args[9], args[10],args[11],args[12]);
+        }
+
+    }
 
 }

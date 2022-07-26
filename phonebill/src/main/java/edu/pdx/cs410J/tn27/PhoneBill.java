@@ -64,12 +64,5 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
       }
     }
     //Support the standard out for pretty print.
-    public String PrintStandardOut() throws ParserException {
-       PhoneCall call = this.call.get(0);
-       String result = this.customer+ "\n" + call.getCaller()+ " "+ call.getCallee()+ " "+
-               call.getBeginTimeString()+" "+ call.getEndTimeString() + " "+call.CalculateDurationMins()+ "Minute(s)";
-       return result;
-
-    }
 
   }
