@@ -45,6 +45,9 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
     return this.call;
   }
 
+  /**
+   * Sort the phone bill collection using the selection sort
+   */
   @VisibleForTesting
   public void SortCollectionPhoneCalls() {
     //Assume that we already have a list of Phone Calls in random order.

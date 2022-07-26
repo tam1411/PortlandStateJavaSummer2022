@@ -5,6 +5,9 @@ import com.google.common.annotations.VisibleForTesting;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Validate the argument on the command line
+ */
 public class validateinfo {
     //Function to test if user enter valid phone number
     @VisibleForTesting
