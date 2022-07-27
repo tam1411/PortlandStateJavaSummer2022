@@ -3,9 +3,7 @@ package edu.pdx.cs410J.tn27;
 import edu.pdx.cs410J.ParserException;
 import edu.pdx.cs410J.web.HttpRequestHelper;
 
-import java.io.IOException;
-import java.io.PrintStream;
-import java.io.StringWriter;
+import java.io.*;
 import java.util.Map;
 
 /**
@@ -17,25 +15,49 @@ public class Project4 {
     public static final String MISSING_ARGS = "Missing command line arguments";
 
     public static void main(String... args) {
-        String hostName = null;
-        String portString = null;
-        String word = null;
-        String definition = null;
+        String hostName = null, host = null;
+        String portString = null,port_num = null, option = null;
+        String customer = null,caller = null,callee = null;
+        String begin_date = null, begin_time = null, begin_zone  = null;
+        String end_date = null, end_time = null, end_zone = null;
 
         for (String arg : args) {
-            if (hostName == null) {
+            if (host == null){
+                host = arg;
+            } else if (hostName == null && host.equals("-host")) {
                 hostName = arg;
 
-            } else if ( portString == null) {
+            } else if (port_num == null) {
+                  port_num = arg;
+            } else if (portString == null && port_num.equals("-port")) {
                 portString = arg;
 
-            } else if (word == null) {
-                word = arg;
-
-            } else if (definition == null) {
-                definition = arg;
-
-            } else {
+            } else if (option == null) {
+                      option  = arg;
+                      if ( !option.equals("-search") || !option.equals("-print")){
+                           customer = arg;
+                           option = "empty";
+                      }
+            } else if (customer == null) {
+                customer = arg;
+            } else if (caller == null) {
+                caller = arg;
+            } else if (callee == null){
+                callee = arg;
+            } else if (begin_date == null){
+                begin_date = arg;
+            } else if (begin_time == null){
+                begin_time = arg;
+            } else if (begin_zone == null){
+                begin_zone = arg;
+            } else if (end_date == null){
+                end_date = arg;
+            } else if (end_time == null){
+                end_time = arg;
+            } else if (end_zone == null){
+                end_zone = arg;
+            }
+            else {
                 usage("Extraneous command line argument: " + arg);
             }
         }
@@ -43,7 +65,10 @@ public class Project4 {
         if (hostName == null) {
             usage( MISSING_ARGS );
 
-        } else if ( portString == null) {
+        }else if (hostName.equals("-README")){
+            README();
+        }
+        else if ( portString == null) {
             usage( "Missing port" );
         }
 
@@ -60,17 +85,17 @@ public class Project4 {
 
         String message;
         try {
-            if (word == null) {
+           /* if (word == null) {
                 // Print all word/definition pairs
                 Map<String, String> dictionary = client.getAllDictionaryEntries();
                 StringWriter sw = new StringWriter();
                 PrettyPrinter pretty = new PrettyPrinter(sw);
                 pretty.dump(dictionary);
-                message = sw.toString();
+                message = sw.toString();*/
 
-            } else if (definition == null) {
+             if (definition == null) {
                 // Print all dictionary entries
-                message = PrettyPrinter.formatDictionaryEntry(word, client.getDefinition(word));
+                message = PrettyPrinter.formatDictionaryEntry(customer, client.getPhoneBill(customer));
 
             } else {
                 // Post the word/definition pair
@@ -130,4 +155,21 @@ public class Project4 {
         err.println("-README         Prints a README for this project and exits.");
         err.println();
     }
+    private static void README(){
+
+        try {
+            //Might not work because of the class.
+            //Check later
+            InputStream readme = Project4.class.getResourceAsStream("README.txt");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(readme));
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error with README.txt");
+        }
+    }
+
 }

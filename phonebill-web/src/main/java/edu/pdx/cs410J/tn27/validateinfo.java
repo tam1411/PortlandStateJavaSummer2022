@@ -5,9 +5,6 @@ import com.google.common.annotations.VisibleForTesting;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Validate the argument on the command line
- */
 public class validateinfo {
     //Function to test if user enter valid phone number
     @VisibleForTesting
@@ -43,29 +40,26 @@ public class validateinfo {
         return match.matches();
 
     }
+    @VisibleForTesting
+    static PhoneCall CreatePhoneCall (String caller, String callee, String begin_date, String begin_time, String begin_zone,
+                                      String end_date, String end_time,String end_zone) throws InvalidPhoneCallArgument {
+        if (!isValidPhoneNumber(caller) || !isValidPhoneNumber(callee)) {
+            throw new InvalidPhoneCallArgument("Invalid phone number.");
+        } else if (!isValidDate(begin_date) || !isValidDate(end_date)) {
+            throw new InvalidPhoneCallArgument("Invalid date.");
+        } else if (!isValidTime(begin_time, begin_zone) || !isValidTime(end_time, end_zone)) {
+            throw new InvalidPhoneCallArgument("Invalid time.");
+        } else {
+            return new PhoneCall(caller, callee, begin_date, begin_time, begin_zone, end_date, end_time, end_zone);
+        }
+    }
 }
 @VisibleForTesting
 //Extend from exception
-static class InvalidPhoneCallArgument extends Exception{
+class InvalidPhoneCallArgument extends Exception{
     public InvalidPhoneCallArgument(String message){
         super(message);
     }
 
 }
-    //Function to validate each arg before create the phone call for text file purpose
-    @VisibleForTesting
-    static PhoneCall CreatePhoneCall (String caller, String callee, String begin_date, String begin_time, String begin_zone,
-                                      String end_date, String end_time,String end_zone) throws InvalidPhoneCallArgument{
-        if (!isValidPhoneNumber(caller) || !isValidPhoneNumber(callee)){
-            throw new InvalidPhoneCallArgument("Invalid phone number.");
-        }
-        else if (!isValidDate(begin_date) || !isValidDate(end_date)){
-            throw new InvalidPhoneCallArgument("Invalid date.");
-        }
-        else if (!isValidTime(begin_time,begin_zone) || !isValidTime(end_time,end_zone))
-        {
-            throw new InvalidPhoneCallArgument("Invalid time.");
-        }
-        else{
-            return new PhoneCall(caller,callee,begin_date,begin_time,begin_zone,end_date,end_time,end_zone);
-        }
+

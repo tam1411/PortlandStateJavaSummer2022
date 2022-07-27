@@ -3,22 +3,22 @@ This is a README file!
 Tam Nguyen
 
 Content of the program
-1. The program is about pretty print to file with new concept of phone bill.
-2.The program also focuses on print the information provided
-on the command line argument nicely.
-3.In order to add a phone call to the phone bill, user has to
-put valid information in the correct format and order.
-4.If there is any error in the input, the program will displace
-an error message and exit.
-5. This is how the command line arguments will need to look like.
-"usage: java -jar target/phonebill-2022.0.0.jar [options] <args>\n" +
-                  "args are (in this order):\n" +
-                  "customer: Person whose phone bill we arere modeling\n" +
-                  "callerNumber: Phone number of caller\n" +
-                  "calleeNumber: Phone number of person who was called\n" +
-                  "begin Date and time call began (12-hour time "am/pm")\n" +
-                  "end Date and time call ended (12-hour time " am/pm")\n" +
-                  "options are (options may appear in any order):\n" +
-                  "-textFile file : Where to read/write the phone bill\n" +
-                  "-print : Prints a description of the new phone call\n" +
-                  "-README : Prints a README for this project and exits"
+Program focuses on the interaction between Java program and web server.
+When user type on the command line some valid information such as customer name, phone calls numbers,
+date, time, the program will support web browser to get and post information.
+Here is the usage on how user can type in.
+usage: java -jar target/phonebill-2022.0.0.jar [options] <args>
+args are (in this order):
+customer         Person whose phone bill we’re modeling
+callerNumber     Phone number of caller
+calleeNumber     Phone number of person who was called
+begin            Date and time call began
+end              Date and time call ended
+options are (options may appear in any order):
+-host hostname   Host computer on which the server runs
+-port port       Port on which the server is listening
+-search          Phone calls should be searched for
+-print           Prints a description of the new phone call
+-README          Prints a README for this project and exits
+
+Any errors in the arguments will lead to stop the program.

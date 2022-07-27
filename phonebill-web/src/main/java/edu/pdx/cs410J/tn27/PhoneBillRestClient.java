@@ -41,29 +41,56 @@ public class PhoneBillRestClient {
   }
 
   /**
-   * Returns all dictionary entries from the server
+   * Returns all phone bills from the server
    */
-  public Map<String, String> getAllDictionaryEntries() throws IOException, ParserException {
+  /*public Map<String, PhoneBill> getAllPhoneBillEntries() throws IOException, ParserException {
     Response response = http.get(Map.of());
 
     TextParser parser = new TextParser(new StringReader(response.getContent()));
     return parser.parse();
-  }
+  }*/
 
   /**
-   * Returns the definition for the given word
+   * Returns the phone bill for the given customer
    */
-  public String getDefinition(String word) throws IOException, ParserException {
-    Response response = http.get(Map.of("word", word));
+  public PhoneBill getPhoneBill(String customer) throws IOException, ParserException {
+    Response response = http.get(Map.of("customer", customer));
     throwExceptionIfNotOkayHttpStatus(response);
     String content = response.getContent();
 
     TextParser parser = new TextParser(new StringReader(content));
-    return parser.parse().get(word);
+    return parser.parse();
   }
 
-    public void addDictionaryEntry(String word, String definition) throws IOException {
-      Response response = http.post(Map.of("word", word, "definition", definition));
+  /**
+   * Add the phone call to a phone bill entry
+   * @param customer
+   *        from the command line
+   * @param caller
+   *        from the command line
+   * @param callee
+   *        from the command line
+   * @param begin_date
+   *        from the command line
+   * @param begin_time
+   *        from the command line
+   * @param begin_zone
+   *        from the command line
+   * @param end_date
+   *        from the command line
+   * @param end_time
+   *        from the command line
+   * @param end_zone
+   *        from the command line
+   * @throws IOException
+   */
+    public void addPhoneCallToPhoneBillEntry(String customer, String caller,String callee,String begin_date,
+                     String begin_time,String begin_zone,String end_date,String end_time,String end_zone)
+            throws IOException {
+
+      Response response = http.post(Map.of("customer", customer, "caller", caller,"callee",callee, "begin_date",begin_date,
+                                           "begin_time",begin_time, "begin_zone",  begin_zone, "end_date",end_date,
+                                            "end_time",end_time,"end_zone",end_zone));
       throwExceptionIfNotOkayHttpStatus(response);
     }
 
