@@ -115,7 +115,7 @@ public class PhoneCall extends AbstractPhoneCall implements Comparable<PhoneCall
      else return (int)result;
 
   }
-  //Return the normal date and time wihout DateFormat.
+  //Return the normal date and time without DateFormat.
   public String NormalBegin(){
     return this.begin_date + " "+ this.begin_time +" "+ this.begin_zone;
   }
