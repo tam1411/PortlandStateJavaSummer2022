@@ -114,17 +114,20 @@ public class Project4 {
         PrintStream err = System.err;
         err.println("** " + message);
         err.println();
-        err.println("usage: java Project4 host port [word] [definition]");
-        err.println("  host         Host of web server");
-        err.println("  port         Port of web server");
-        err.println("  word         Word in dictionary");
-        err.println("  definition   Definition of word");
+        err.println("usage: java -jar target/phonebill-2022.0.0.jar [options] <args> ");
+        err.println("args are (in this order)");
+        err.println("  customer      Person whose phone bill we’re modeling");
+        err.println("  callerNumber  Phone number of caller");
+        err.println("  calleeNumber  Phone number of person who was called");
+        err.println("  begin         Date and time call began");
+        err.println("  end           Date and time call end");
         err.println();
-        err.println("This simple program posts words and their definitions");
-        err.println("to the server.");
-        err.println("If no definition is specified, then the word's definition");
-        err.println("is printed.");
-        err.println("If no word is specified, all dictionary entries are printed");
+        err.println("options are (options may appear in any order):\n");
+        err.println("-host hostname  Host computer on which the server runs\n");
+        err.println("-port port      Port on which the server is listening");
+        err.println("-search         Phone calls should be searched for");
+        err.println("-print          Prints a description of the new phone call");
+        err.println("-README         Prints a README for this project and exits.");
         err.println();
     }
 }

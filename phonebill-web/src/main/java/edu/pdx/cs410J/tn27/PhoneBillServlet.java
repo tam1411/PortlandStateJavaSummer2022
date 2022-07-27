@@ -8,10 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This servlet ultimately provides a REST API for working with an
@@ -36,7 +33,8 @@ public class PhoneBillServlet extends HttpServlet
       static final String END_ZONE = "end_zone";
 
 
-      private final List<PhoneBill> bill = new ArrayList<>();
+      //private final List<PhoneBill> bill = new ArrayList<>();
+      private final Map <String,PhoneBill> Phonebill_List = new HashMap<>();
     /**
      * Handles an HTTP GET request from a client by writing all the phone calls of the
      * customer specified in "customer" HTTP parameter to the HTTP response.
@@ -46,9 +44,9 @@ public class PhoneBillServlet extends HttpServlet
     {
         response.setContentType( "text/plain" );
 
-        String word = getParameter( CUSTOMER, request );
-        if (word != null) {
-            WritePhoneCallsOfEachPhoneBill(word, response);
+        String customer = getParameter( CUSTOMER, request );
+        if (customer != null) {
+            WritePhoneCallsOfEachPhoneBill(customer, response);
 
         } else {
             writeAllPhoneBills(response);
@@ -108,9 +106,9 @@ public class PhoneBillServlet extends HttpServlet
         }
         new_bill.addPhoneCall(new PhoneCall(caller,callee,begin_date,begin_time,begin_zone,end_date,end_time,end_zone));
         //this.dictionary.put(word, definition);
-        this.bill.add(new_bill);
+        this.Phonebill_List.put(customer,new_bill);
         PrintWriter pw = response.getWriter();
-        pw.println(Messages.definedWordAs(word, definition));
+        pw.println(Messages.CustomerhasPhoneBill(customer, new_bill));
         pw.flush();
 
         response.setStatus( HttpServletResponse.SC_OK);
@@ -125,7 +123,7 @@ public class PhoneBillServlet extends HttpServlet
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/plain");
 
-        this.dictionary.clear();
+        this.Phonebill_List.clear();
 
         PrintWriter pw = response.getWriter();
         pw.println(Messages.allDictionaryEntriesDeleted());
@@ -148,7 +146,7 @@ public class PhoneBillServlet extends HttpServlet
     }
 
     /**
-     * Writes the definition of the given word to the HTTP response.
+     * Write the content of the phone bill associated with a customer to the response
      *
      * The text of the message is formatted with {@link TextDumper}
      */
@@ -180,13 +178,13 @@ public class PhoneBillServlet extends HttpServlet
      *       PhoneBill object.
      */
     private PhoneBill getContent(String customer) {
-        PhoneBill Customer = new PhoneBill(customer);
+        /*PhoneBill Customer = new PhoneBill(customer);
         PhoneBill content = null;
         if (this.bill.contains(Customer)){
             int i = bill.indexOf(Customer);
             content = this.bill.get(i);
-        }
-        return content;
+        }*/
+        return this.Phonebill_List.get(customer);
     }
 
     /**
@@ -198,8 +196,9 @@ public class PhoneBillServlet extends HttpServlet
     {
         PrintWriter pw = response.getWriter();
         TextDumper dumper = new TextDumper(pw);
-        for (int i = 0; i < this.bill.size(); ++i) {
-            dumper.dump(this.bill.get(i));
+
+        for (String key : this.Phonebill_List.keySet()) {
+            dumper.dump(this.Phonebill_List.get(key));
         }
         response.setStatus( HttpServletResponse.SC_OK );
     }
@@ -220,9 +219,9 @@ public class PhoneBillServlet extends HttpServlet
       }
     }
 
-    @VisibleForTesting
+    /*@VisibleForTesting
     String getDefinition(String word) {
         return this.dictionary.get(word);
-    }
+    }*/
 
 }
