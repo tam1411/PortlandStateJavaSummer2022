@@ -102,10 +102,13 @@ public class PhoneBillServlet extends HttpServlet
             missingRequiredParameter( response, END_ZONE );
             return;
         }
-        PhoneBill new_bill = new PhoneBill(customer);
+        PhoneBill new_bill = getContent(customer);
+        if (new_bill == null){
+            new_bill = new PhoneBill(customer);
+        }
         new_bill.addPhoneCall(new PhoneCall(caller,callee,begin_date,begin_time,begin_zone,end_date,end_time,end_zone));
         //this.dictionary.put(word, definition);
-          this.bill.add(new_bill);
+        this.bill.add(new_bill);
         PrintWriter pw = response.getWriter();
         pw.println(Messages.definedWordAs(word, definition));
         pw.flush();
@@ -150,12 +153,7 @@ public class PhoneBillServlet extends HttpServlet
      * The text of the message is formatted with {@link TextDumper}
      */
     private void WritePhoneCallsOfEachPhoneBill(String customer, HttpServletResponse response) throws IOException {
-         PhoneBill Customer = new PhoneBill(customer);
-         PhoneBill content = null;
-         if (this.bill.contains(Customer)){
-             int i = bill.indexOf(Customer);
-             content = this.bill.get(i);
-         }
+        PhoneBill content = getContent(customer);
 
        /* if (definition == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);*/
@@ -172,6 +170,23 @@ public class PhoneBillServlet extends HttpServlet
 
             response.setStatus(HttpServletResponse.SC_OK);
         }
+    }
+
+    /**
+     * Function to search a phone bill in a list of phone bills by a customer name
+     * @param customer
+     *        passes in to create a new phone bill.
+     * @return
+     *       PhoneBill object.
+     */
+    private PhoneBill getContent(String customer) {
+        PhoneBill Customer = new PhoneBill(customer);
+        PhoneBill content = null;
+        if (this.bill.contains(Customer)){
+            int i = bill.indexOf(Customer);
+            content = this.bill.get(i);
+        }
+        return content;
     }
 
     /**
