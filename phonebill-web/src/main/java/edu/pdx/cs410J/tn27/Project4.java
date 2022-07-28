@@ -6,6 +6,8 @@ import edu.pdx.cs410J.web.HttpRequestHelper;
 import java.io.*;
 import java.util.Map;
 
+import static edu.pdx.cs410J.tn27.validateinfo.CreatePhoneCall;
+
 /**
  * The main class that parses the command line and communicates with the
  * Phone Bill server using REST.
@@ -104,13 +106,13 @@ public class Project4 {
                  message = sw.toString();
             } else {
                 // Post the word/definition pair
-                 PhoneCall call = new PhoneCall(caller,callee,begin_date,
+                 PhoneCall call = CreatePhoneCall(caller,callee,begin_date,
                          begin_time,begin_zone,end_date,end_time,end_zone);
                 client.addPhoneCallToPhoneBillEntry(customer,caller,callee,begin_date,
                         begin_time,begin_zone,end_date,end_time,end_zone);
                 message = Messages.CustomerhasPhoneBill(customer,call);
              }
-        } catch (IOException | ParserException ex ) {
+        } catch (IOException | ParserException | InvalidPhoneCallArgument ex ) {
             error("While contacting server: " + ex);
             return;
         }
