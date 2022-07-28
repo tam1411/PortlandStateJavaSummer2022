@@ -82,6 +82,7 @@ public class Project4 {
         }
 
         PhoneBillRestClient client = new PhoneBillRestClient(hostName, port);
+        PhoneBill bill = new PhoneBill(customer);
 
         String message;
         try {
@@ -93,23 +94,29 @@ public class Project4 {
                 pretty.dump(dictionary);
                 message = sw.toString();*/
 
-             if (definition == null) {
+             if (args.length == 5 && customer != null) {
                 // Print all dictionary entries
-                message = PrettyPrinter.formatDictionaryEntry(customer, client.getPhoneBill(customer));
-
+               // message = PrettyPrinter.formatDictionaryEntry(customer, client.getPhoneBill(customer));
+                  bill = client.getPhoneBill(customer);
+                 StringWriter sw = new StringWriter();
+                 PrettyPrinter pretty = new PrettyPrinter(sw);
+                 pretty.dump(bill);
+                 message = sw.toString();
             } else {
                 // Post the word/definition pair
-                client.addDictionaryEntry(word, definition);
-                message = Messages.definedWordAs(word, definition);
-            }
-
+                 PhoneCall call = new PhoneCall(caller,callee,begin_date,
+                         begin_time,begin_zone,end_date,end_time,end_zone);
+                client.addPhoneCallToPhoneBillEntry(customer,caller,callee,begin_date,
+                        begin_time,begin_zone,end_date,end_time,end_zone);
+                message = Messages.CustomerhasPhoneBill(customer,call);
+             }
         } catch (IOException | ParserException ex ) {
             error("While contacting server: " + ex);
             return;
         }
 
         System.out.println(message);
-    }
+        }
 
     /**
      * Makes sure that the give response has the expected HTTP status code

@@ -11,9 +11,9 @@ public class Messages
         return String.format("The required parameter \"%s\" is missing", parameterName);
     }
 
-    public static String CustomerhasPhoneBill(String customer, PhoneBill new_bill )
+    public static String CustomerhasPhoneBill(String customer, PhoneCall new_call )
     {
-        return String.format( "%s : \n.%s", customer, new_bill.toString() );
+        return String.format( "%s\n%s\n", customer, new_call.toString() );
     }
 
     public static String allDictionaryEntriesDeleted() {

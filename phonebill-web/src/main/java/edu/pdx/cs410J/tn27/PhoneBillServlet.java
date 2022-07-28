@@ -104,11 +104,20 @@ public class PhoneBillServlet extends HttpServlet
         if (new_bill == null){
             new_bill = new PhoneBill(customer);
         }
-        new_bill.addPhoneCall(new PhoneCall(caller,callee,begin_date,begin_time,begin_zone,end_date,end_time,end_zone));
+        PhoneCall call = new PhoneCall(caller,callee,begin_date,begin_time,begin_zone,end_date,end_time,end_zone);
+        new_bill.addPhoneCall(call);
         //this.dictionary.put(word, definition);
         this.Phonebill_List.put(customer,new_bill);
         PrintWriter pw = response.getWriter();
-        pw.println(Messages.CustomerhasPhoneBill(customer, new_bill));
+
+        pw.println(new_bill.getCustomer());
+        List<PhoneCall> call1 = (List<PhoneCall>) new_bill.getPhoneCalls();
+        for (int i = 0; i < call1.size(); ++i) {
+            PhoneCall new_call = call1.get(i);
+            //String line = new_call.getCaller() + " " + new_call.getCallee() + " " + new_call.NormalBegin() + " " + new_call.NormalEnd();
+            pw.println(new_call.toString());
+            //pw.flush();
+        }
         pw.flush();
 
         response.setStatus( HttpServletResponse.SC_OK);
@@ -219,9 +228,9 @@ public class PhoneBillServlet extends HttpServlet
       }
     }
 
-    /*@VisibleForTesting
-    String getDefinition(String word) {
-        return this.dictionary.get(word);
-    }*/
+    @VisibleForTesting
+    PhoneBill getAPhoneBill(String customer) {
+        return this.Phonebill_List.get(customer);
+    }
 
 }
