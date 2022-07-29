@@ -91,7 +91,7 @@ public class PhoneBillRestClient {
     PhoneBill search_bill = new PhoneBill(bill.getCustomer());
     List<PhoneCall> call = (List<PhoneCall>) bill.getPhoneCalls();
     for (int i = 0; i < call.size(); ++i){
-         if (call.get(i).getBeginTime().compareTo(Begin) >= 0 || call.get(i).getBeginTime().compareTo(End) <= 0){
+         if( call.get(i).getBeginTime().compareTo(Begin) >= 0 && call.get(i).getBeginTime().compareTo(End) <= 0){
            search_bill.addPhoneCall(call.get(i));
          }
     }

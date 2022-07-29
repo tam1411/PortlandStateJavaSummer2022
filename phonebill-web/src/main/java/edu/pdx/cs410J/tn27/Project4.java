@@ -138,6 +138,7 @@ public class Project4 {
                  StringWriter sw = new StringWriter();
                  PrettyPrinter pretty = new PrettyPrinter(sw);
                  pretty.dump(bill);
+                 System.out.println("This search case");
                  message = sw.toString();
             }
              else {
