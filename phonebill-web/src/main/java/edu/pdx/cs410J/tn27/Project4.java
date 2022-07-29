@@ -4,9 +4,12 @@ import edu.pdx.cs410J.ParserException;
 import edu.pdx.cs410J.web.HttpRequestHelper;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
-import static edu.pdx.cs410J.tn27.validateinfo.CreatePhoneCall;
+import static edu.pdx.cs410J.tn27.validateinfo.*;
 
 /**
  * The main class that parses the command line and communicates with the
@@ -23,44 +26,68 @@ public class Project4 {
         String begin_date = null, begin_time = null, begin_zone  = null;
         String end_date = null, end_time = null, end_zone = null;
 
-        for (String arg : args) {
+        //for (String arg : args) {
+        for (int i = 0; i < args.length; ++i){
             if (host == null){
-                host = arg;
+                host = args[i];
             } else if (hostName == null && host.equals("-host")) {
-                hostName = arg;
+                hostName = args[i];
 
             } else if (port_num == null) {
-                  port_num = arg;
+                  port_num = args[i];
             } else if (portString == null && port_num.equals("-port")) {
-                portString = arg;
+                portString = args[i];
 
             } else if (option == null) {
-                      option  = arg;
-                      if ( !option.equals("-search") || !option.equals("-print")){
-                           customer = arg;
-                           option = "empty";
+                      option  = args[i];
+                      if ( option.equals("-search")) {
+                          for (int j = i + 1; j < args.length; ++j){
+                               if (customer == null) {
+                                   customer = args[j];
+                          } else if (begin_date == null){
+                              begin_date = args[j];
+                          } else if (begin_time == null){
+                              begin_time = args[j];
+                          } else if (begin_zone == null){
+                              begin_zone = args[j];
+                          } else if (end_date == null){
+                              end_date = args[j];
+                          } else if (end_time == null){
+                              end_time = args[j];
+                          } else if (end_zone == null){
+                              end_zone = args[j];
+                          }
+
+                          }
+                          break;
+                      }
+                      else{
+                          option = "empty";
+                          customer = args[i];
                       }
             } else if (customer == null) {
-                customer = arg;
+                customer = args[i];
+                System.out.println(customer+ "\n");
             } else if (caller == null) {
-                caller = arg;
+                caller = args[i];
+               // System.out.println(caller);
             } else if (callee == null){
-                callee = arg;
+                callee = args[i];
             } else if (begin_date == null){
-                begin_date = arg;
+                begin_date = args[i];
             } else if (begin_time == null){
-                begin_time = arg;
+                begin_time = args[i];
             } else if (begin_zone == null){
-                begin_zone = arg;
+                begin_zone = args[i];
             } else if (end_date == null){
-                end_date = arg;
+                end_date = args[i];
             } else if (end_time == null){
-                end_time = arg;
+                end_time = args[i];
             } else if (end_zone == null){
-                end_zone = arg;
+                end_zone = args[i];
             }
             else {
-                usage("Extraneous command line argument: " + arg);
+                usage("Extraneous command line argument: " + args[i]);
             }
         }
 
@@ -86,7 +113,7 @@ public class Project4 {
         PhoneBillRestClient client = new PhoneBillRestClient(hostName, port);
         PhoneBill bill = new PhoneBill(customer);
 
-        String message;
+        String message = "message does not fall in any cases";
         try {
            /* if (word == null) {
                 // Print all word/definition pairs
@@ -104,12 +131,22 @@ public class Project4 {
                  PrettyPrinter pretty = new PrettyPrinter(sw);
                  pretty.dump(bill);
                  message = sw.toString();
-            } else {
+            }else if (option.equals("-search") && customer != null){
+                 Date Begin = getBegin(begin_date,begin_time, begin_zone);
+                 Date End = getBegin(end_date,end_time,end_zone);
+                 bill = client.SearchPhoneCallsBeginEnd(customer,Begin,End);
+                 StringWriter sw = new StringWriter();
+                 PrettyPrinter pretty = new PrettyPrinter(sw);
+                 pretty.dump(bill);
+                 message = sw.toString();
+            }
+             else {
                 // Post the word/definition pair
                  PhoneCall call = CreatePhoneCall(caller,callee,begin_date,
                          begin_time,begin_zone,end_date,end_time,end_zone);
                 client.addPhoneCallToPhoneBillEntry(customer,caller,callee,begin_date,
                         begin_time,begin_zone,end_date,end_time,end_zone);
+                System.out.println("Just added to " + customer);
                 message = Messages.CustomerhasPhoneBill(customer,call);
              }
         } catch (IOException | ParserException | InvalidPhoneCallArgument ex ) {
@@ -119,6 +156,36 @@ public class Project4 {
 
         System.out.println(message);
         }
+
+    /**
+     * Function to parse the begin time into a Date object
+     * to search for phone calls between two begin times
+      * @param begin_date
+     *         begin date from command line
+     * @param begin_time
+     *        begin time from command line
+     * @param begin_zone
+     *        begin_zone from command line
+     * @return date
+     */
+    public static Date getBegin(String begin_date, String begin_time, String begin_zone) throws InvalidPhoneCallArgument {
+        if (!isValidTime(begin_time,begin_zone))
+            throw new InvalidPhoneCallArgument("Invalid time");
+        if (!isValidDate(begin_date))
+            throw new InvalidPhoneCallArgument("Invalid date");
+
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(begin_date + " " + begin_time + " " + begin_zone);
+        Date date = null;
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy h:mm a");
+        try {
+            date = df.parse(sb.toString());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return date;
+    }
 
     /**
      * Makes sure that the give response has the expected HTTP status code

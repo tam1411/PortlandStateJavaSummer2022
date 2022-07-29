@@ -6,6 +6,8 @@ import edu.pdx.cs410J.web.HttpRequestHelper;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import static edu.pdx.cs410J.web.HttpRequestHelper.Response;
@@ -52,7 +54,10 @@ public class PhoneBillRestClient {
 
   /**
    * Returns the phone bill for the given customer
+   * @param customer
+   *        pass in to get the phone bill content
    */
+
   public PhoneBill getPhoneBill(String customer) throws IOException, ParserException {
     Response response = http.get(Map.of("customer", customer));
     throwExceptionIfNotOkayHttpStatus(response);
@@ -60,6 +65,37 @@ public class PhoneBillRestClient {
 
     TextParser parser = new TextParser(new StringReader(content));
     return parser.parse();
+  }
+
+  public PhoneBill SearchPhoneCallsBeginEnd (String customer, Date Begin, Date End) throws IOException, ParserException {
+    Response response = http.get(Map.of("customer", customer));
+    throwExceptionIfNotOkayHttpStatus(response);
+    String content = response.getContent();
+
+    TextParser parser = new TextParser(new StringReader(content));
+    return SearchBeginEnd(parser.parse(),Begin,End);
+
+  }
+  /**
+   * Function to search phone calls that begin
+   * between two times inside a phone bill.
+   *
+   * @param bill
+   *        original phone bill to search.
+   * @param Begin
+   *        Begin Date object passed in from the command line.
+   * @param End
+   *        Second Begin Date object passed in from the command line.
+   */
+  private PhoneBill SearchBeginEnd(PhoneBill bill, Date Begin, Date End){
+    PhoneBill search_bill = new PhoneBill(bill.getCustomer());
+    List<PhoneCall> call = (List<PhoneCall>) bill.getPhoneCalls();
+    for (int i = 0; i < call.size(); ++i){
+         if (call.get(i).getBeginTime().compareTo(Begin) >= 0 || call.get(i).getBeginTime().compareTo(End) <= 0){
+           search_bill.addPhoneCall(call.get(i));
+         }
+    }
+    return search_bill;
   }
 
   /**
