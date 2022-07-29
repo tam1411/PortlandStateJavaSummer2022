@@ -91,11 +91,12 @@ public class Project4 {
             }
         }
 
-        if (hostName == null) {
+        if (host == null) {
             usage( MISSING_ARGS );
 
-        }else if (hostName.equals("-README")){
+        }else if (host.equals("-README")){
             README();
+
         }
         else if ( portString == null) {
             usage( "Missing port" );
@@ -115,31 +116,39 @@ public class Project4 {
 
         String message = "message does not fall in any cases";
         try {
-           /* if (word == null) {
-                // Print all word/definition pairs
-                Map<String, String> dictionary = client.getAllDictionaryEntries();
-                StringWriter sw = new StringWriter();
-                PrettyPrinter pretty = new PrettyPrinter(sw);
-                pretty.dump(dictionary);
-                message = sw.toString();*/
-
              if (args.length == 5 && customer != null) {
-                // Print all dictionary entries
-               // message = PrettyPrinter.formatDictionaryEntry(customer, client.getPhoneBill(customer));
                   bill = client.getPhoneBill(customer);
                  StringWriter sw = new StringWriter();
                  PrettyPrinter pretty = new PrettyPrinter(sw);
                  pretty.dump(bill);
                  message = sw.toString();
             }else if (option.equals("-search") && customer != null){
-                 Date Begin = getBegin(begin_date,begin_time, begin_zone);
-                 Date End = getBegin(end_date,end_time,end_zone);
-                 bill = client.SearchPhoneCallsBeginEnd(customer,Begin,End);
-                 StringWriter sw = new StringWriter();
-                 PrettyPrinter pretty = new PrettyPrinter(sw);
-                 pretty.dump(bill);
-                 System.out.println("This search case");
-                 message = sw.toString();
+                // Date Begin = getBegin(begin_date,begin_time, begin_zone);
+                 //Date End = getBegin(end_date,end_time,end_zone);
+                 if (!isValidTime(begin_time,begin_zone))
+                     throw new InvalidPhoneCallArgument("Invalid time");
+                 if (!isValidDate(begin_date))
+                     throw new InvalidPhoneCallArgument("Invalid date");
+                 String begin = begin_date + " " + begin_time + " " + begin_zone;
+                 String end = end_date + " " + end_time + " " + end_zone;
+
+
+                 bill = client.SearchPhoneCallsBeginEnd(customer,begin,end);
+
+
+                     StringWriter sw = new StringWriter();
+                     PrettyPrinter pretty = new PrettyPrinter(sw);
+                     pretty.dump(bill);
+                     String sw1 = sw.toString();
+                     //System.out.println("This search case");
+                     if (sw1.trim().equals(bill.getCustomer()))
+                     {  message = "There is no calls";
+                     }else{
+                         message = sw1;
+                     }
+
+                 ;
+
             }
              else {
                 // Post the word/definition pair
@@ -169,7 +178,7 @@ public class Project4 {
      *        begin_zone from command line
      * @return date
      */
-    public static Date getBegin(String begin_date, String begin_time, String begin_zone) throws InvalidPhoneCallArgument {
+   /*public static Date getBegin(String begin_date, String begin_time, String begin_zone) throws InvalidPhoneCallArgument {
         if (!isValidTime(begin_time,begin_zone))
             throw new InvalidPhoneCallArgument("Invalid time");
         if (!isValidDate(begin_date))
@@ -186,7 +195,7 @@ public class Project4 {
             throw new RuntimeException(e);
         }
         return date;
-    }
+    }*/
 
     /**
      * Makes sure that the give response has the expected HTTP status code
@@ -237,8 +246,10 @@ public class Project4 {
         try {
             //Might not work because of the class.
             //Check later
+
             InputStream readme = Project4.class.getResourceAsStream("README.txt");
             BufferedReader reader = new BufferedReader(new InputStreamReader(readme));
+            //FileReader reader = new FileReader(new File("README.txt"));
             String line = null;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);

@@ -6,10 +6,14 @@ import edu.pdx.cs410J.web.HttpRequestHelper;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import static edu.pdx.cs410J.tn27.validateinfo.isValidDate;
+import static edu.pdx.cs410J.tn27.validateinfo.isValidTime;
 import static edu.pdx.cs410J.web.HttpRequestHelper.Response;
 import static edu.pdx.cs410J.web.HttpRequestHelper.RestException;
 import static java.net.HttpURLConnection.HTTP_OK;
@@ -67,27 +71,34 @@ public class PhoneBillRestClient {
     return parser.parse();
   }
 
-  public PhoneBill SearchPhoneCallsBeginEnd (String customer, Date Begin, Date End) throws IOException, ParserException {
-    Response response = http.get(Map.of("customer", customer));
+  public PhoneBill SearchPhoneCallsBeginEnd (String customer, String begin, String end) throws IOException, ParserException, InvalidPhoneCallArgument {
+
+      Response response = http.get(Map.of("customer", customer,"begin",begin,"end",end));
     throwExceptionIfNotOkayHttpStatus(response);
     String content = response.getContent();
 
     TextParser parser = new TextParser(new StringReader(content));
-    return SearchBeginEnd(parser.parse(),Begin,End);
+   //return SearchBeginEnd(parser.parse(),begin,end);
+    return parser.parse();
 
   }
+  /*
   /**
    * Function to search phone calls that begin
    * between two times inside a phone bill.
    *
    * @param bill
    *        original phone bill to search.
-   * @param Begin
+   * @param begin
    *        Begin Date object passed in from the command line.
-   * @param End
+   * @param end
    *        Second Begin Date object passed in from the command line.
    */
-  private PhoneBill SearchBeginEnd(PhoneBill bill, Date Begin, Date End){
+ /*public PhoneBill SearchBeginEnd(PhoneBill bill, String begin,String end) throws InvalidPhoneCallArgument {
+    Date Begin = getBegin(begin);
+    Date End = getBegin(end);
+    if (bill == null){
+        throw new InvalidPhoneCallArgument("Phone bill is empty");}
     PhoneBill search_bill = new PhoneBill(bill.getCustomer());
     List<PhoneCall> call = (List<PhoneCall>) bill.getPhoneCalls();
     for (int i = 0; i < call.size(); ++i){
@@ -96,8 +107,20 @@ public class PhoneBillRestClient {
          }
     }
     return search_bill;
-  }
+  }*/
+  public static Date getBegin(String begin)  {
 
+    //StringBuilder sb = new StringBuilder();
+    //sb.append(begin);
+    Date date;
+    SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy h:mm a");
+    try {
+      date = df.parse(begin);
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
+    }
+    return date;
+  }
   /**
    * Add the phone call to a phone bill entry
    * @param customer

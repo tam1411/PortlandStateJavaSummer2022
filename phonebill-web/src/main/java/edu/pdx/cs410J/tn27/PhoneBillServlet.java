@@ -2,6 +2,7 @@ package edu.pdx.cs410J.tn27;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.inject.internal.InternalFlags;
+import edu.pdx.cs410J.ParserException;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
+
+import static edu.pdx.cs410J.tn27.PhoneBillRestClient.getBegin;
 
 /**
  * This servlet ultimately provides a REST API for working with an
@@ -31,9 +34,11 @@ public class PhoneBillServlet extends HttpServlet
       static final String END_DATE = "end_date";
       static final String END_TIME = "end_time";
       static final String END_ZONE = "end_zone";
+      private static final String BEGIN = "begin";
+      private static final String END = "end";
 
 
-      //private final List<PhoneBill> bill = new ArrayList<>();
+    //private final List<PhoneBill> bill = new ArrayList<>();
       private final Map <String,PhoneBill> Phonebill_List = new HashMap<>();
     /**
      * Handles an HTTP GET request from a client by writing all the phone calls of the
@@ -45,12 +50,60 @@ public class PhoneBillServlet extends HttpServlet
         response.setContentType( "text/plain" );
 
         String customer = getParameter( CUSTOMER, request );
-        if (customer != null) {
+        String begin = getParameter(BEGIN,request);
+        String end = getParameter(END,request);
+        if (customer != null &&  begin == null && end == null) {
             WritePhoneCallsOfEachPhoneBill(customer, response);
 
-        } else {
+        } if (customer != null && begin != null && end != null){
+
+        try {
+            WriteSearchPhoneCall(customer, begin,end, response);
+        } catch (InvalidPhoneCallArgument e) {
+            throw new RuntimeException();
+        }
+
+
+    } else{
             writeAllPhoneBills(response);
         }
+    }
+
+    private void WriteSearchPhoneCall(String customer, String begin, String end, HttpServletResponse response) throws IOException, InvalidPhoneCallArgument {
+        PhoneBill content = getContent(customer);
+        PhoneBill new_content = SearchBeginEnd(content,begin,end);
+
+       /* if (definition == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);*/
+
+        if (new_content == null){
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+
+        else {
+            PrintWriter pw = response.getWriter();
+            // Map<String, String> wordDefinition = Map.of(word, definition);
+            TextDumper dumper = new TextDumper(pw);
+            dumper.dump(new_content);
+
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+    }
+
+    public PhoneBill SearchBeginEnd(PhoneBill bill, String begin,String end) throws InvalidPhoneCallArgument {
+        Date Begin = getBegin(begin);
+        Date End = getBegin(end);
+        if (bill == null){
+            throw new InvalidPhoneCallArgument("Empty Phone Bill");
+        }
+        PhoneBill search_bill = new PhoneBill(bill.getCustomer());
+        List<PhoneCall> call = (List<PhoneCall>) bill.getPhoneCalls();
+        for (int i = 0; i < call.size(); ++i){
+            if( call.get(i).getBeginTime().compareTo(Begin) >= 0 && call.get(i).getBeginTime().compareTo(End) <= 0){
+                search_bill.addPhoneCall(call.get(i));
+            }
+        }
+        return search_bill;
     }
 
     /**

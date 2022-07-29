@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Integration test that tests the REST calls made by {@link PhoneBillRestClient}
  */
-/*
+
 @TestMethodOrder(MethodName.class)
 class PhoneBillRestClientIT {
   private static final String HOSTNAME = "localhost";
@@ -33,7 +33,7 @@ class PhoneBillRestClientIT {
     PhoneBillRestClient client = newPhoneBillRestClient();
     client.removeAllDictionaryEntries();
   }
-
+/*
   @Test
   void test1EmptyServerContainsNoDictionaryEntries() throws IOException, ParserException {
     PhoneBillRestClient client = newPhoneBillRestClient();
@@ -61,6 +61,6 @@ class PhoneBillRestClientIT {
       assertThrows(RestException.class, () -> client.addDictionaryEntry(emptyString, emptyString));
     assertThat(ex.getHttpStatusCode(), equalTo(HttpURLConnection.HTTP_PRECON_FAILED));
     assertThat(ex.getMessage(), equalTo(Messages.missingRequiredParameter("word")));
-  }
+  }*/
 
-}*/
+}
