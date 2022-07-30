@@ -36,7 +36,7 @@ class Project4IT extends InvokeMainTestCase {
       client.removeAllDictionaryEntries();
     }
 
-    @Test
+   @Test
     void test1NoCommandLineArguments() {
         MainMethodResult result = invokeMain( Project4.class );
         assertThat(result.getTextWrittenToStandardError(), containsString(Project4.MISSING_ARGS));
