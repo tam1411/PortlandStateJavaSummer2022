@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".MainActivity">
 
     <TextView
@@ -23,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="152dp"
         android:layout_marginTop="388dp"
+        android:onClick="sayHello"
         android:text="@string/click_me"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
