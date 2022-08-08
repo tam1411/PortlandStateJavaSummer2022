@@ -1,4 +1,4 @@
-package edu.pdx.cs410P.tn27;
+package edu.pdx.cs410J.tn27;
 
 import org.junit.Test;
 
