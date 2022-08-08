@@ -27,7 +27,7 @@ public class README extends AppCompatActivity {
     }
 
 
-    private StringBuilder readme(){
+    public StringBuilder readme(){
         StringBuilder txt = new StringBuilder();
         try {
             InputStream readme = getResources().openRawResource(R.raw.readme);

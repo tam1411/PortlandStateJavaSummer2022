@@ -1,4 +1,4 @@
-                                      Welcome to Phone Bill Help.
+                                      Welcome to Phone Bill.
 Phone Bill app contains:
 1. Create a phone bill
 2. Add a phone call
