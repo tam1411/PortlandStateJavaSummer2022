@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">phonebill-android</string>
+    <string name="hello">Welcome to Phone Bill App!</string>
+    <string name="help">Help</string>
 </resources>
