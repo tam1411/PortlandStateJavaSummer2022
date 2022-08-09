@@ -2,4 +2,10 @@
     <string name="app_name">phonebill-android</string>
     <string name="hello">Welcome to Phone Bill App!</string>
     <string name="help">Help</string>
+    <string name="menu">Menu</string>
+    <string name="pretty_print">Pretty Print</string>
+    <string name="add_new_phone_call">Add new Phone Call</string>
+    <string name="search_phone_calls">Search Phone Calls</string>
+    <string name="create_new_phone_bill">Create New Phone Bill</string>
+
 </resources>

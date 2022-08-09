@@ -18,4 +18,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, README.class);
         startActivity(intent);
     }
+
+    public void Launch_Menu(View view){
+        Intent intent = new Intent(this, LaunchMenu.class);
+        startActivity(intent);
+    }
 }
