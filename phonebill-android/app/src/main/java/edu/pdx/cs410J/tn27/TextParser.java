@@ -48,9 +48,9 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
                 if (isValidDate(array[2])|| isValidDate(array[5])){
                     throw new ParserException("can't parse the file with invalid date");
                 }
-                if (isValidTime(array[3],array[4]) || isValidTime(array[6],array[7])){
+                /*if (isValidTime(array[3],array[4]) || isValidTime(array[6],array[7])){
                     throw new ParserException(("can't parse the file with invalid time"));
-                }
+                }*/
                 PhoneCall call = new PhoneCall(array[0], array[1], array[2], array[3], array[4],
                         array[5],array[6],array[7]);
                 bill.addPhoneCall(call);

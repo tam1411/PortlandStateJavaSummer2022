@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class validateinfo {
     //Function to test if user enter valid phone number
-    @VisibleForTesting
+
     static boolean isValidPhoneNumber(String phoneNumber) {
 
         String regex = "[0-9]{3}-[0-9]{3}-[0-9]{4}";
@@ -19,7 +19,7 @@ public class validateinfo {
     }
 
 
-    @VisibleForTesting
+
 //Function to test for valid date
     static boolean isValidDate(String date) {
 
@@ -31,11 +31,11 @@ public class validateinfo {
         return !match.matches();
     }
 
-    @VisibleForTesting
-    static boolean isValidTime(String number, String zone) {
-        String regex = "(1[012]|[1-9]):[0-5][0-9]" + "(am|pm)";
+
+    static boolean isValidTime(String number) {
+        String regex = "(1[012]|[1-9]):[0-5][0-9]\\s(am|pm)";
         Pattern P = Pattern.compile(regex);
-        Matcher match = P.matcher(number + zone);
+        Matcher match = P.matcher(number);
 
         return !match.matches();
     }
@@ -50,7 +50,7 @@ public class validateinfo {
         else if (isValidDate(begin_date) || isValidDate(end_date)){
             throw new InvalidPhoneCallArgument("Invalid date.");
         }
-        else if (isValidTime(begin_time, begin_zone) || isValidTime(end_time, end_zone))
+        else if (isValidTime(begin_time) || isValidTime(end_time))
         {
             throw new InvalidPhoneCallArgument("Invalid time.");
         }
