@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:onClick="LaunchCreatePhoneBill"
     tools:context=".LaunchMenu">
 
     <Button
@@ -42,6 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginTop="388dp"
+        android:onClick="LaunchCreatePhoneBill"
         android:text="@string/create_new_phone_bill"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
