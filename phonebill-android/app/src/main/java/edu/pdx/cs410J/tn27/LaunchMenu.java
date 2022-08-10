@@ -18,10 +18,16 @@ import java.io.IOException;
  */
 public class LaunchMenu extends AppCompatActivity {
     int CreatePhoneBill = 1;
+    int Add_New_Call = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_menu);
+    }
+
+    public void LaunchAddNewCall(View view){
+        Intent intent = new Intent(this,Launch_Add_New_call.class);
+        startActivity(intent);
     }
 
     public void LaunchCreatePhoneBill(View view){

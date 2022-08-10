@@ -20,5 +20,7 @@
     <string name="return_to_menu">Return to Menu</string>
     <string name="create">Create</string>
     <string name="enter_caller">Enter Caller Number</string>
+    <string name="enter_name_to_search">Enter Name to Search</string>
+    <string name="search">Search</string>
 
 </resources>

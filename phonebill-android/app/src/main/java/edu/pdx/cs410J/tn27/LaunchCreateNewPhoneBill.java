@@ -30,8 +30,6 @@ public class LaunchCreateNewPhoneBill extends AppCompatActivity implements Seria
 
 
         EditText Customer = (EditText) findViewById(R.id.customer);
-
-
         EditText Caller = findViewById(R.id.Caller);
         EditText Callee = findViewById(R.id.editTextTextPersonName9);
         EditText Begin_date = findViewById(R.id.editTextTextPersonName10);
