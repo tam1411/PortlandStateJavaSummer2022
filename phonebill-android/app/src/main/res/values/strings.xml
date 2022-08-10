@@ -22,5 +22,6 @@
     <string name="enter_caller">Enter Caller Number</string>
     <string name="enter_name_to_search">Enter Name to Search</string>
     <string name="search">Search</string>
+    <string name="add_new_call">Add New Call</string>
 
 </resources>
