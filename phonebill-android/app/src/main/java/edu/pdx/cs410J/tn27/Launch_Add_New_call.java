@@ -32,7 +32,7 @@ public class Launch_Add_New_call extends AppCompatActivity {
                 Toast.makeText(this, "No Found Customer",Toast.LENGTH_LONG).show();
             }
             else {
-                //Toast.makeText(this, "Customer :" + customer,Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Customer :" + customer,Toast.LENGTH_LONG).show();
                 return true;
             }
         }
