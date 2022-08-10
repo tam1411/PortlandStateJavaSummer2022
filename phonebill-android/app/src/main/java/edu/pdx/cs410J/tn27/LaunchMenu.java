@@ -24,7 +24,10 @@ public class LaunchMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_menu);
     }
-
+    public void LaunchPrettyPrint(View view){
+        Intent intent = new Intent(this,pretty_print.class);
+        startActivity(intent);
+    }
     public void LaunchAddNewCall(View view){
         Intent intent = new Intent(this,Launch_Add_New_call.class);
         startActivity(intent);
