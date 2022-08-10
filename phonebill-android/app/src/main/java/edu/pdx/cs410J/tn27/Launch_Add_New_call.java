@@ -2,6 +2,7 @@ package edu.pdx.cs410J.tn27;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -17,7 +18,7 @@ public class Launch_Add_New_call extends AppCompatActivity {
         setContentView(R.layout.activity_launch_add_new_call);
     }
 
-    public void SearchPhoneCall(View view){
+    public boolean SearchPhoneCall(View view){
         EditText Customer = findViewById(R.id.customerSearch);
         if (Customer.length()== 0)
         {
@@ -30,11 +31,21 @@ public class Launch_Add_New_call extends AppCompatActivity {
             if (!IsExist){
                 Toast.makeText(this, "No Found Customer",Toast.LENGTH_LONG).show();
             }
-            else {Toast.makeText(this, "Customer :" + customer,Toast.LENGTH_LONG).show();
-
+            else {
+                //Toast.makeText(this, "Customer :" + customer,Toast.LENGTH_LONG).show();
+                return true;
             }
         }
+        return false;
     }
+    public void LaunchNewCall(View view) {
+        if (SearchPhoneCall(view)){
+        Intent intent = new Intent(this,Add_call.class);
+        startActivity(intent);
+        }
+    }
+
+
 
 
     private File getTheFile(String Customer){

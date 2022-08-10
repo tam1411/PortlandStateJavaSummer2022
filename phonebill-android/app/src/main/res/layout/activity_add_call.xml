@@ -6,35 +6,112 @@
     android:layout_height="match_parent"
     tools:context=".Add_call">
 
-    <EditText
-        android:id="@+id/AddCaller"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:ems="10"
-        android:hint="@string/enter_caller_number"
-        android:inputType="phone"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/AddCallee"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.447"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.512"
-        tools:ignore="Autofill,TextContrastCheck" />
-
-    <EditText
-        android:id="@+id/AddCallee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="500dp"
-        android:ems="10"
-        android:hint="@string/enter_callee_number"
-        android:inputType="phone"
-        android:minHeight="48dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="371dp"
+        android:layout_height="510dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="129dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="38dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="Autofill,TextContrastCheck" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <EditText
+            android:id="@+id/AddCaller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:ems="10"
+            android:hint="@string/enter_caller_number"
+            android:inputType="phone"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toTopOf="@+id/AddCallee"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="Autofill,TextContrastCheck" />
+
+        <EditText
+            android:id="@+id/AddCallee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="80dp"
+            android:layout_marginBottom="348dp"
+            android:ems="10"
+            android:hint="@string/enter_callee_number"
+            android:inputType="phone"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="Autofill,TextContrastCheck" />
+
+        <EditText
+            android:id="@+id/begin_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="@string/enter_begin_date"
+            android:inputType="date"
+            android:minHeight="48dp"
+            tools:ignore="Autofill,TextContrastCheck"
+            app:layout_constraintBottom_toTopOf="@+id/editTextTime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/AddCallee"
+            app:layout_constraintVertical_bias="0.246" />
+
+        <EditText
+            android:id="@+id/editTextTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:ems="10"
+            android:hint="@string/enter_begin_time"
+            android:inputType="time"
+            android:minHeight="48dp"
+            tools:ignore="Autofill,TextContrastCheck"
+            app:layout_constraintBottom_toTopOf="@+id/editTextDate2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/editTextDate2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:ems="10"
+            android:hint="@string/enter_end_date"
+            android:inputType="date"
+            android:minHeight="48dp"
+            tools:ignore="Autofill,TextContrastCheck"
+            app:layout_constraintBottom_toTopOf="@+id/editTextTime2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.509"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/editTextTime2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:ems="10"
+            android:hint="@string/enter_end_time"
+            android:inputType="time"
+            android:minHeight="48dp"
+            tools:ignore="Autofill,TextContrastCheck"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
