@@ -90,7 +90,7 @@ public class Launch_Add_New_call extends AppCompatActivity {
         String file_name =String.format("%s.txt",Customer);
         return new File(this.getFilesDir(),file_name);
     }
-    private FileInputStream getFileToRead(String file_name) {
+    /*private FileInputStream getFileToRead(String file_name) {
         String name = String.format("%s.txt", file_name);
         FileInputStream in = null;
         try {
@@ -99,5 +99,5 @@ public class Launch_Add_New_call extends AppCompatActivity {
             e.getMessage();
         }
         return in;
-    }
+    }*/
 }

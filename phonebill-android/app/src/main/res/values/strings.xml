@@ -24,6 +24,7 @@
     <string name="search">Search</string>
     <string name="add_new_call">Add New Call</string>
     <string name="createcall">Create</string>
+    <string name="search_customer_by_name">Search Customer by Name</string>
 
 
 </resources>
