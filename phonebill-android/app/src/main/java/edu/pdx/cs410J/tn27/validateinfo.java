@@ -33,7 +33,8 @@ public class validateinfo {
 
 
     static boolean isValidTime(String number) {
-        String regex = "(1[012]|[1-9]):[0-5][0-9]\\s(am|pm)";
+        //String regex = "(1[012]|[1-9]):[0-5][0-9](am|pm)";
+        String regex = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
         Pattern P = Pattern.compile(regex);
         Matcher match = P.matcher(number);
 
@@ -55,7 +56,9 @@ public class validateinfo {
             throw new InvalidPhoneCallArgument("Invalid time.");
         }
         else{
-            return new PhoneCall(caller,callee,begin_date,begin_time,begin_zone,end_date,end_time,end_zone);
+           // return new PhoneCall(caller,callee,begin_date,begin_time,begin_zone,end_date,end_time,end_zone);
+            return new PhoneCall(caller,callee,begin_date,begin_time,end_date,end_time);
+
         }
     }
 }

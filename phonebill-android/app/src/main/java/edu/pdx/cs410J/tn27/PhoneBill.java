@@ -12,8 +12,7 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
     public PhoneBill(String customer) {
 
         this.customer = customer;
-        this.call = new ArrayList<PhoneCall>() {
-        };
+        this.call = new ArrayList<PhoneCall>() ;
 
     }
 

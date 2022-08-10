@@ -16,5 +16,9 @@
     <string name="enter_end_date">Enter end date</string>
     <string name="enter_end_time">Enter end time</string>
     <string name="enter_begin_time">Enter begin time</string>
+    <string name="return_to_main">Return To Main</string>
+    <string name="return_to_menu">Return to Menu</string>
+    <string name="create">Create</string>
+    <string name="enter_caller">Enter Caller Number</string>
 
 </resources>

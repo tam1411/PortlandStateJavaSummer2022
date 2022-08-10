@@ -52,7 +52,7 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
                     throw new ParserException(("can't parse the file with invalid time"));
                 }*/
                 PhoneCall call = new PhoneCall(array[0], array[1], array[2], array[3], array[4],
-                        array[5],array[6],array[7]);
+                        array[5]);
                 bill.addPhoneCall(call);
 
                 //Read the next line until it's the end of file

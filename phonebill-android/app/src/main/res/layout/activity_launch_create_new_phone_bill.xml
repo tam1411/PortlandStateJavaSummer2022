@@ -11,60 +11,45 @@
         android:layout_height="606dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.275"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.648">
+        app:layout_constraintVertical_bias="0.728">
 
         <EditText
-            android:id="@+id/editTextTextPersonName7"
+            android:id="@+id/customer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="68dp"
             android:ems="10"
             android:hint="@string/enter_customername"
             android:inputType="textPersonName"
             android:minHeight="48dp"
             android:textColorHint="#757575"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="Autofill"/>
-
-        <EditText
-            android:id="@+id/editTextTextPersonName8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="number"
-            android:minHeight="48dp"
-            android:hint="@string/caller_number"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.204"
-            tools:ignore="Autofill"/>
+            tools:ignore="Autofill" />
 
         <EditText
             android:id="@+id/editTextTextPersonName9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="71dp"
-            android:layout_marginTop="178dp"
-            android:layout_marginEnd="72dp"
-            android:layout_marginBottom="380dp"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="180dp"
+            android:layout_marginEnd="71dp"
+            android:layout_marginBottom="378dp"
             android:ems="10"
-            android:inputType="number"
-            android:minHeight="48dp"
             android:hint="@string/enter_callee_number"
+            android:inputType="phone"
+            android:minHeight="48dp"
+            android:textColorHint="#757575"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="Autofill"/>
+            tools:ignore="Autofill" />
 
         <EditText
             android:id="@+id/editTextTextPersonName10"
@@ -72,32 +57,34 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="239dp"
             android:ems="10"
+            android:hint="@string/enter_begin_date"
             android:inputType="date"
             android:minHeight="48dp"
-            android:hint="@string/enter_begin_date"
+            android:textColorHint="#757575"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.025"
-            tools:ignore="Autofill"/>
+            tools:ignore="Autofill" />
 
         <EditText
             android:id="@+id/editTextTextPersonName11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="@string/enter_begin_time"
             android:inputType="time"
             android:minHeight="48dp"
-            android:hint="@string/enter_begin_time"
+            android:textColorHint="#757575"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.551"
-            tools:ignore="Autofill"/>
+            tools:ignore="Autofill" />
 
         <EditText
             android:id="@+id/editTextTextPersonName12"
@@ -113,7 +100,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="Autofill"/>
+            tools:ignore="Autofill" />
 
         <EditText
             android:id="@+id/editTextTextPersonName13"
@@ -132,6 +119,55 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.813"
-            tools:ignore="Autofill"/>
+            tools:ignore="Autofill" />
+
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="37dp"
+            android:layout_marginTop="524dp"
+            android:layout_marginEnd="225dp"
+            android:layout_marginBottom="34dp"
+            android:onClick="CreatePhoneBill"
+            android:text="@string/create"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="178dp"
+            android:layout_marginTop="524dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="34dp"
+            android:onClick="ReturnToMenu"
+            android:text="Return to Menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/Caller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="116dp"
+            android:layout_marginEnd="73dp"
+            android:layout_marginBottom="445dp"
+            android:ems="10"
+            android:inputType="phone"
+            android:hint="@string/enter_caller"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
