@@ -1,6 +1,7 @@
 package edu.pdx.cs410J.tn27;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresPermission;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -35,7 +37,7 @@ public class Launch_Add_New_call extends AppCompatActivity {
         }
         else{
             String customer = Customer.getText().toString();
-            File file = getTheFile(customer);
+            File file = getFile(customer);
             boolean IsExist = file.exists();
             if (!IsExist){
                 Toast.makeText(this, "No Found Customer",Toast.LENGTH_LONG).show();
@@ -62,26 +64,40 @@ public class Launch_Add_New_call extends AppCompatActivity {
             if (call != null) {
                 EditText Customer = findViewById(R.id.customerSearch);
                 String customer = Customer.getText().toString();
-                File file_name = getTheFile(customer);
-                PhoneBill bill = null;
+                File file_name = getFile(customer);
+                //PhoneBill bill = null;
                 try {
                     TextParser parser = new TextParser(new FileReader(file_name));
-                    TextDumper dumper = new TextDumper(new FileWriter(file_name));
-                     bill = parser.parse();
+                     PhoneBill bill = parser.parse();
                      bill.addPhoneCall(call);
+                    TextDumper dumper = new TextDumper(new FileWriter(file_name));
                      dumper.dump(bill);
-                } catch (ParserException | IOException e) {
-                    ToastException((IOException) e);
+                } catch (IOException | ParserException e) {
+                    e.getMessage();
                 }
             }
         }
 
     }
+    private PhoneBill ReadFile(File file_name) throws FileNotFoundException, ParserException {
+        TextParser parser = new TextParser(new FileReader(file_name));
+        return parser.parse();
+    }
     private void ToastException(IOException e) {
         Toast.makeText(this,e.getMessage(),Toast.LENGTH_LONG).show();
     }
-    private File getTheFile(String Customer){
+    private File getFile(String Customer){
         String file_name =String.format("%s.txt",Customer);
-        return new File(this.getDataDir(),file_name);
+        return new File(this.getFilesDir(),file_name);
+    }
+    private FileInputStream getFileToRead(String file_name) {
+        String name = String.format("%s.txt", file_name);
+        FileInputStream in = null;
+        try {
+            in = openFileInput(name);
+        } catch (FileNotFoundException e) {
+            e.getMessage();
+        }
+        return in;
     }
 }

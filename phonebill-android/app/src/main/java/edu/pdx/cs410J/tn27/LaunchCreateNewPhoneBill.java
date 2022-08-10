@@ -15,7 +15,7 @@ import android.widget.Toast;
 import java.io.Serializable;
 
 public class LaunchCreateNewPhoneBill extends AppCompatActivity implements Serializable {
-    static PhoneBill Bill;
+    private PhoneBill Bill;
     //EditText Customer,Caller,Callee,Begin_date, Begin_time,End_date,End_time;
 
     @Override
@@ -39,10 +39,10 @@ public class LaunchCreateNewPhoneBill extends AppCompatActivity implements Seria
         //If all the fields are correct --> create a phone bill and return it
          boolean flag = CheckAllFields(Customer,Caller,Callee,Begin_date,Begin_time,End_date,End_time);
             if (flag) {
-                this.Bill = new PhoneBill(Customer.getText().toString());
+                Bill = new PhoneBill(Customer.getText().toString());
                 PhoneCall call = CreateNewPhoneCall(Caller, Callee, Begin_date, Begin_time, End_date, End_time);
-                this.Bill.addPhoneCall(call);
-                //Toast.makeText(this,, Toast.LENGTH_LONG).show();
+                Bill.addPhoneCall(call);
+                Toast.makeText(this,"Create Successfully", Toast.LENGTH_LONG).show();
 
             }
 
@@ -50,7 +50,7 @@ public class LaunchCreateNewPhoneBill extends AppCompatActivity implements Seria
     }
    public void ReturnToMenu(View view){
         Intent data = new Intent();
-        data.putExtra("new_bill",this.Bill);
+        data.putExtra("new_bill", Bill);
         setResult(RESULT_OK,data);
         finish();
     }

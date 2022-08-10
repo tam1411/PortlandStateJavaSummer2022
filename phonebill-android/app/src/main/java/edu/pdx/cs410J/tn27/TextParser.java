@@ -19,7 +19,7 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
         this.reader = reader;
     }
 
-    @SuppressLint("VisibleForTests")
+    //@SuppressLint("VisibleForTests")
     @Override
     public PhoneBill parse() throws ParserException {
         try (

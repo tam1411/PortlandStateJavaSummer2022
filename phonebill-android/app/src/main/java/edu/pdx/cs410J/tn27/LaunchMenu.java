@@ -63,7 +63,7 @@ public class LaunchMenu extends AppCompatActivity {
 
     private File getTheFile(String Customer){
         String file_name =String.format("%s.txt",Customer);
-            return new File(this.getDataDir(),file_name);
+            return new File(this.getFilesDir(),file_name);
         }
 
 

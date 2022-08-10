@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.Serializable;
 
@@ -31,12 +32,13 @@ public class Add_call extends AppCompatActivity implements Serializable {
         boolean flag = CheckAllFields(Caller,Callee,Begin_date,Begin_time,End_date,End_time);
         if (flag){
             this.call = CreateNewPhoneCall(Caller, Callee, Begin_date, Begin_time, End_date, End_time);
+            Toast.makeText(this,"Create Successfully", Toast.LENGTH_LONG).show();
         }
     }
     public void ReturnToMenu(View view){
-        Intent data = new Intent();
-        data.putExtra("new_call",this.call);
-        setResult(RESULT_OK,data);
+        Intent intent = new Intent();
+        intent.putExtra( "new_call",this.call);
+        setResult(RESULT_OK,intent);
         finish();
     }
     public PhoneCall CreateNewPhoneCall(EditText Caller, EditText Callee, EditText Begin_date,
