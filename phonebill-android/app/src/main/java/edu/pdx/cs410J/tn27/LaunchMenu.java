@@ -22,9 +22,6 @@ public class LaunchMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_menu);
-
-
-
     }
 
     public void LaunchCreatePhoneBill(View view){
