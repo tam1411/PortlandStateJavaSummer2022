@@ -24,6 +24,10 @@ public class LaunchMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_menu);
     }
+    public void LaunchSearch(View view){
+        Intent intent = new Intent(this,SearchBetweenDate.class);
+        startActivity(intent);
+    }
     public void LaunchPrettyPrint(View view){
         Intent intent = new Intent(this,pretty_print.class);
         startActivity(intent);
